@@ -377,7 +377,8 @@
             <span class="text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-400/30 px-1.5 py-0.5 rounded-md">Semanal</span>
         </a>
 
-        {{-- Tarifas y Valores --}}
+        {{-- Tarifas y Valores — solo administrador --}}
+        @if(Auth::user()->rol->nombre === 'administrador')
         <div>
             <button onclick="toggleMenu('menu-tarifas', 'chev-tarifas')"
                 class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-white/80 hover:bg-white/10 hover:text-white transition-all group font-medium text-sm
@@ -401,7 +402,10 @@
                 </a>
             </div>
         </div>
+        @endif
 
+        {{-- Sección Administración — solo visible para administrador --}}
+        @if(Auth::user()->rol->nombre === 'administrador')
         <div class="px-3 pt-3 pb-1 text-[10px] font-bold tracking-wider text-emerald-200/50 uppercase">
             Administración
         </div>
@@ -430,6 +434,7 @@
                 </a>
             </div>
         </div>
+        @endif
 
     </nav>
 

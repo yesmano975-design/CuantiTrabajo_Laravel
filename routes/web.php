@@ -15,16 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Rutas autenticadas
+// Rutas autenticadas — acceso para todos los roles
 Route::middleware(['auth'])->group(function () {
 
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
-    // Usuarios
-    Route::resource('usuarios', UsuarioController::class);
-    Route::patch('usuarios/{usuario}/toggle-estado', [UsuarioController::class, 'toggleEstado'])
-        ->name('usuarios.toggleEstado');
 
     // Trabajadores
     Route::resource('trabajadores', TrabajadorController::class)
@@ -34,15 +29,6 @@ Route::middleware(['auth'])->group(function () {
 
     // Lotes
     Route::resource('lotes', LoteController::class);
-
-    // Tipo de Actividades
-    Route::resource('tipo-actividades', TipoActividadController::class)
-        ->names('tipo-actividades')
-        ->parameters(['tipo-actividades' => 'tipo_actividad']);
-
-    // Tarifas (ValorActividad)
-    Route::resource('tarifas', ValorActividadController::class)
-        ->names('tarifas');
 
     // Actividades Laborales
     Route::resource('actividades', ActividadLaboralController::class)
@@ -55,10 +41,27 @@ Route::middleware(['auth'])->group(function () {
 
     // Pagos
     Route::resource('pagos', PagoController::class);
-
-    // Ruta extra para marcar pago como pagado
     Route::patch('pagos/{pago}/marcar-pagado', [PagoController::class, 'marcarPagado'])
         ->name('pagos.marcarPagado');
+
+});
+
+// Rutas exclusivas del administrador
+Route::middleware(['auth', 'role:administrador'])->group(function () {
+
+    // Usuarios
+    Route::resource('usuarios', UsuarioController::class);
+    Route::patch('usuarios/{usuario}/toggle-estado', [UsuarioController::class, 'toggleEstado'])
+        ->name('usuarios.toggleEstado');
+
+    // Tipos de Actividad
+    Route::resource('tipo-actividades', TipoActividadController::class)
+        ->names('tipo-actividades')
+        ->parameters(['tipo-actividades' => 'tipo_actividad']);
+
+    // Tarifas (ValorActividad)
+    Route::resource('tarifas', ValorActividadController::class)
+        ->names('tarifas');
 
 });
 
