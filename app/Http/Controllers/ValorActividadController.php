@@ -36,7 +36,8 @@ class ValorActividadController extends Controller
         $tarifas = ValorActividad::with('tipoActividad')
             ->orderBy('fecha_inicio', 'desc')
             ->get();
-        return view('admin.tarifas.index', compact('tarifas'));
+        $tipos = TipoActividad::orderBy('nombre')->get();
+        return view('admin.tarifas.index', compact('tarifas', 'tipos'));
     }
 
     /**

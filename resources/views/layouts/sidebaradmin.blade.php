@@ -290,79 +290,28 @@
         </div>
 
         {{-- Trabajadores --}}
-        <div>
-            <button onclick="toggleMenu('menu-trabajadores', 'chev-trabajadores')"
-                class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-white/80 hover:bg-white/10 hover:text-white transition-all group font-medium text-sm
-                       {{ request()->routeIs('trabajadores.*') ? 'nav-item-active' : '' }}">
-                <div class="flex items-center gap-3">
-                    <i class="fas fa-user-group text-base w-5 text-center group-hover:text-brand-300 {{ request()->routeIs('trabajadores.*') ? 'text-brand-300' : 'text-emerald-200/70' }}"></i>
-                    <span>Trabajadores</span>
-                </div>
-                <i id="chev-trabajadores" class="fas fa-chevron-down text-xs text-white/50 chevron {{ request()->routeIs('trabajadores.*') ? 'open' : '' }}"></i>
-            </button>
-            <div id="menu-trabajadores" class="submenu pl-8 mt-1 space-y-1 {{ request()->routeIs('trabajadores.*') ? 'open' : '' }}">
-                <a href="{{ route('trabajadores.create') }}"
-                   class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-white/70 hover:text-white hover:bg-white/10 text-xs font-medium transition-all
-                          {{ request()->routeIs('trabajadores.create') ? 'text-brand-300 bg-white/10 font-bold' : '' }}">
-                    <i class="fas fa-user-plus text-[10px] w-3.5"></i> Registrar Nuevo
-                </a>
-                <a href="{{ route('trabajadores.index') }}"
-                   class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-white/70 hover:text-white hover:bg-white/10 text-xs font-medium transition-all
-                          {{ request()->routeIs('trabajadores.index') ? 'text-brand-300 bg-white/10 font-bold' : '' }}">
-                    <i class="fas fa-table-list text-[10px] w-3.5"></i> Listado General
-                </a>
-            </div>
-        </div>
+        <a href="{{ route('trabajadores.index') }}"
+           class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/80 hover:bg-white/10 hover:text-white transition-all group font-medium text-sm
+                  {{ request()->routeIs('trabajadores.*') ? 'nav-item-active' : '' }}">
+            <i class="fas fa-user-group text-base w-5 text-center group-hover:text-brand-300 {{ request()->routeIs('trabajadores.*') ? 'text-brand-300' : 'text-emerald-200/70' }}"></i>
+            <span>Trabajadores</span>
+        </a>
 
         {{-- Lotes --}}
-        <div>
-            <button onclick="toggleMenu('menu-lotes', 'chev-lotes')"
-                class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-white/80 hover:bg-white/10 hover:text-white transition-all group font-medium text-sm
-                       {{ request()->routeIs('lotes.*') ? 'nav-item-active' : '' }}">
-                <div class="flex items-center gap-3">
-                    <i class="fas fa-map-location-dot text-base w-5 text-center group-hover:text-brand-300 {{ request()->routeIs('lotes.*') ? 'text-brand-300' : 'text-emerald-200/70' }}"></i>
-                    <span>Lotes y Terrenos</span>
-                </div>
-                <i id="chev-lotes" class="fas fa-chevron-down text-xs text-white/50 chevron {{ request()->routeIs('lotes.*') ? 'open' : '' }}"></i>
-            </button>
-            <div id="menu-lotes" class="submenu pl-8 mt-1 space-y-1 {{ request()->routeIs('lotes.*') ? 'open' : '' }}">
-                <a href="{{ route('lotes.create') }}"
-                   class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-white/70 hover:text-white hover:bg-white/10 text-xs font-medium transition-all
-                          {{ request()->routeIs('lotes.create') ? 'text-brand-300 bg-white/10 font-bold' : '' }}">
-                    <i class="fas fa-plus text-[10px] w-3.5"></i> Registrar Lote
-                </a>
-                <a href="{{ route('lotes.index') }}"
-                   class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-white/70 hover:text-white hover:bg-white/10 text-xs font-medium transition-all
-                          {{ request()->routeIs('lotes.index') ? 'text-brand-300 bg-white/10 font-bold' : '' }}">
-                    <i class="fas fa-layer-group text-[10px] w-3.5"></i> Mapa de Lotes
-                </a>
-            </div>
-        </div>
+        <a href="{{ route('lotes.index') }}"
+           class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/80 hover:bg-white/10 hover:text-white transition-all group font-medium text-sm
+                  {{ request()->routeIs('lotes.*') ? 'nav-item-active' : '' }}">
+            <i class="fas fa-map-location-dot text-base w-5 text-center group-hover:text-brand-300 {{ request()->routeIs('lotes.*') ? 'text-brand-300' : 'text-emerald-200/70' }}"></i>
+            <span>Lotes y Terrenos</span>
+        </a>
 
         {{-- Actividades Laborales --}}
-        <div>
-            <button onclick="toggleMenu('menu-acts', 'chev-acts')"
-                class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-white/80 hover:bg-white/10 hover:text-white transition-all group font-medium text-sm
-                       {{ request()->routeIs('actividades.*') ? 'nav-item-active' : '' }}">
-                <div class="flex items-center gap-3">
-                    <i class="fas fa-clipboard-check text-base w-5 text-center group-hover:text-brand-300 {{ request()->routeIs('actividades.*') ? 'text-brand-300' : 'text-emerald-200/70' }}"></i>
-                    <span>Actividades</span>
-                </div>
-                <i id="chev-acts" class="fas fa-chevron-down text-xs text-white/50 chevron {{ request()->routeIs('actividades.*') ? 'open' : '' }}"></i>
-            </button>
-            <div id="menu-acts" class="submenu pl-8 mt-1 space-y-1 {{ request()->routeIs('actividades.*') ? 'open' : '' }}">
-                <a href="{{ route('actividades.create') }}"
-                   class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-white/70 hover:text-white hover:bg-white/10 text-xs font-medium transition-all
-                          {{ request()->routeIs('actividades.create') ? 'text-brand-300 bg-white/10 font-bold' : '' }}">
-                    <i class="fas fa-plus text-[10px] w-3.5"></i> Registrar Diaria
-                </a>
-                <a href="{{ route('actividades.index') }}"
-                   class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-white/70 hover:text-white hover:bg-white/10 text-xs font-medium transition-all
-                          {{ request()->routeIs('actividades.index') ? 'text-brand-300 bg-white/10 font-bold' : '' }}">
-                    <i class="fas fa-list-check text-[10px] w-3.5"></i> Historial y Validación
-                </a>
-            </div>
-        </div>
+        <a href="{{ route('actividades.index') }}"
+           class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/80 hover:bg-white/10 hover:text-white transition-all group font-medium text-sm
+                  {{ request()->routeIs('actividades.*') ? 'nav-item-active' : '' }}">
+            <i class="fas fa-clipboard-check text-base w-5 text-center group-hover:text-brand-300 {{ request()->routeIs('actividades.*') ? 'text-brand-300' : 'text-emerald-200/70' }}"></i>
+            <span>Actividades</span>
+        </a>
 
         <div class="px-3 pt-3 pb-1 text-[10px] font-bold tracking-wider text-emerald-200/50 uppercase">
             Finanzas y Tarifas
@@ -379,29 +328,18 @@
 
         {{-- Tarifas y Valores — solo administrador --}}
         @if(Auth::user()->rol->nombre === 'administrador')
-        <div>
-            <button onclick="toggleMenu('menu-tarifas', 'chev-tarifas')"
-                class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-white/80 hover:bg-white/10 hover:text-white transition-all group font-medium text-sm
-                       {{ request()->routeIs('tarifas.*') || request()->routeIs('tipo-actividades.*') ? 'nav-item-active' : '' }}">
-                <div class="flex items-center gap-3">
-                    <i class="fas fa-tags text-base w-5 text-center group-hover:text-brand-300 {{ request()->routeIs('tarifas.*') || request()->routeIs('tipo-actividades.*') ? 'text-brand-300' : 'text-emerald-200/70' }}"></i>
-                    <span>Tarifas y Valores</span>
-                </div>
-                <i id="chev-tarifas" class="fas fa-chevron-down text-xs text-white/50 chevron {{ request()->routeIs('tarifas.*') || request()->routeIs('tipo-actividades.*') ? 'open' : '' }}"></i>
-            </button>
-            <div id="menu-tarifas" class="submenu pl-8 mt-1 space-y-1 {{ request()->routeIs('tarifas.*') || request()->routeIs('tipo-actividades.*') ? 'open' : '' }}">
-                <a href="{{ route('tipo-actividades.index') }}"
-                   class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-white/70 hover:text-white hover:bg-white/10 text-xs font-medium transition-all
-                          {{ request()->routeIs('tipo-actividades.*') ? 'text-brand-300 bg-white/10 font-bold' : '' }}">
-                    <i class="fas fa-shapes text-[10px] w-3.5"></i> Tipos de Actividad
-                </a>
-                <a href="{{ route('tarifas.index') }}"
-                   class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-white/70 hover:text-white hover:bg-white/10 text-xs font-medium transition-all
-                          {{ request()->routeIs('tarifas.*') ? 'text-brand-300 bg-white/10 font-bold' : '' }}">
-                    <i class="fas fa-dollar-sign text-[10px] w-3.5"></i> Tarifas Vigentes
-                </a>
-            </div>
-        </div>
+        <a href="{{ route('tipo-actividades.index') }}"
+           class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/80 hover:bg-white/10 hover:text-white transition-all group font-medium text-sm
+                  {{ request()->routeIs('tipo-actividades.*') ? 'nav-item-active' : '' }}">
+            <i class="fas fa-shapes text-base w-5 text-center group-hover:text-brand-300 {{ request()->routeIs('tipo-actividades.*') ? 'text-brand-300' : 'text-emerald-200/70' }}"></i>
+            <span>Tipos de Actividad</span>
+        </a>
+        <a href="{{ route('tarifas.index') }}"
+           class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/80 hover:bg-white/10 hover:text-white transition-all group font-medium text-sm
+                  {{ request()->routeIs('tarifas.*') ? 'nav-item-active' : '' }}">
+            <i class="fas fa-dollar-sign text-base w-5 text-center group-hover:text-brand-300 {{ request()->routeIs('tarifas.*') ? 'text-brand-300' : 'text-emerald-200/70' }}"></i>
+            <span>Tarifas Vigentes</span>
+        </a>
         @endif
 
         {{-- Sección Administración — solo visible para administrador --}}
@@ -411,29 +349,12 @@
         </div>
 
         {{-- Usuarios --}}
-        <div>
-            <button onclick="toggleMenu('menu-users', 'chev-users')"
-                class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-white/80 hover:bg-white/10 hover:text-white transition-all group font-medium text-sm
-                       {{ request()->routeIs('usuarios.*') ? 'nav-item-active' : '' }}">
-                <div class="flex items-center gap-3">
-                    <i class="fas fa-shield-halved text-base w-5 text-center group-hover:text-brand-300 {{ request()->routeIs('usuarios.*') ? 'text-brand-300' : 'text-emerald-200/70' }}"></i>
-                    <span>Usuarios y Roles</span>
-                </div>
-                <i id="chev-users" class="fas fa-chevron-down text-xs text-white/50 chevron {{ request()->routeIs('usuarios.*') ? 'open' : '' }}"></i>
-            </button>
-            <div id="menu-users" class="submenu pl-8 mt-1 space-y-1 {{ request()->routeIs('usuarios.*') ? 'open' : '' }}">
-                <a href="{{ route('usuarios.create') }}"
-                   class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-white/70 hover:text-white hover:bg-white/10 text-xs font-medium transition-all
-                          {{ request()->routeIs('usuarios.create') ? 'text-brand-300 bg-white/10 font-bold' : '' }}">
-                    <i class="fas fa-user-plus text-[10px] w-3.5"></i> Nuevo Usuario
-                </a>
-                <a href="{{ route('usuarios.index') }}"
-                   class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-white/70 hover:text-white hover:bg-white/10 text-xs font-medium transition-all
-                          {{ request()->routeIs('usuarios.index') ? 'text-brand-300 bg-white/10 font-bold' : '' }}">
-                    <i class="fas fa-users-gear text-[10px] w-3.5"></i> Lista de Usuarios
-                </a>
-            </div>
-        </div>
+        <a href="{{ route('usuarios.index') }}"
+           class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/80 hover:bg-white/10 hover:text-white transition-all group font-medium text-sm
+                  {{ request()->routeIs('usuarios.*') ? 'nav-item-active' : '' }}">
+            <i class="fas fa-shield-halved text-base w-5 text-center group-hover:text-brand-300 {{ request()->routeIs('usuarios.*') ? 'text-brand-300' : 'text-emerald-200/70' }}"></i>
+            <span>Usuarios y Roles</span>
+        </a>
         @endif
 
     </nav>
@@ -486,7 +407,7 @@
                 <span>{{ now()->locale('es')->isoFormat('dddd, D MMMM YYYY') }}</span>
             </div>
 
-            <a href="{{ route('actividades.create') }}"
+            <a href="{{ route('actividades.index') }}"
                class="inline-flex items-center gap-2 bg-gradient-to-r from-forest to-forest-light text-white px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold hover:shadow-lg hover:shadow-forest/20 hover:-translate-y-0.5 transition-all shadow-sm">
                 <i class="fas fa-plus-circle text-brand-300"></i>
                 <span class="hidden sm:inline">Nueva Actividad</span>

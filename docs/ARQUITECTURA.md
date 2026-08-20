@@ -78,6 +78,7 @@ CuantiTrabajo_Laravel/
 └── docs/
     └── ARQUITECTURA.md         ← Este archivo
 ```
+request
 
 ---
 

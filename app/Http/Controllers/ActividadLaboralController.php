@@ -51,21 +51,7 @@ class ActividadLaboralController extends Controller
         $confirmadas = $actividades->where('estado_confirmacion', 'confirmado')->count();
         $rechazadas  = $actividades->where('estado_confirmacion', 'rechazado')->count();
 
-        return view('admin.actividades.index', compact(
-            'actividades', 'pendientes', 'confirmadas', 'rechazadas'
-        ));
-    }
-
-    /**
-     * create()
-     * Prepara el formulario de nueva actividad.
-     * Solo carga tarifas activas y vigentes a la fecha de hoy para evitar
-     * que se registren actividades con tarifas vencidas o inactivas.
-     * Solo carga trabajadores con estado 'activo'.
-     */
-    public function create()
-    {
-        // Tarifas activas cuya vigencia incluye hoy (sin fecha_fin o con fecha_fin >= hoy)
+        // Datos para el modal de crear actividad
         $tarifas = ValorActividad::with('tipoActividad')
             ->where('estado', 'activo')
             ->where('fecha_inicio', '<=', now())
@@ -83,7 +69,24 @@ class ActividadLaboralController extends Controller
 
         $lotes = Lote::orderBy('nombre')->get();
 
-        return view('admin.actividades.create', compact('tarifas', 'trabajadores', 'lotes'));
+        return view('admin.actividades.index', compact(
+            'actividades', 'pendientes', 'confirmadas', 'rechazadas',
+            'tarifas', 'trabajadores', 'lotes'
+        ));
+    }
+
+    /**
+     * create()
+     * Prepara el formulario de nueva actividad.
+     * Solo carga tarifas activas y vigentes a la fecha de hoy para evitar
+     * que se registren actividades con tarifas vencidas o inactivas.
+     * Solo carga trabajadores con estado 'activo'.
+     */
+    public function create()
+    {
+        // El formulario de crear actividad es ahora un modal en el index.
+        // Esta ruta ya no se usa — redirige al index directamente.
+        return redirect()->route('actividades.index');
     }
 
     /**
@@ -130,31 +133,9 @@ class ActividadLaboralController extends Controller
      */
     public function edit(ActividadLaboral $actividad)
     {
-        // Bloquear edición si ya fue procesada
-        if ($actividad->estado_confirmacion !== 'pendiente') {
-            return redirect()->route('actividades.index')
-                ->with('error', 'Solo se pueden editar actividades en estado pendiente.');
-        }
-
-        // Misma lógica de filtrado que create()
-        $tarifas = ValorActividad::with('tipoActividad')
-            ->where('estado', 'activo')
-            ->where('fecha_inicio', '<=', now())
-            ->where(function ($q) {
-                $q->whereNull('fecha_fin')
-                  ->orWhere('fecha_fin', '>=', now());
-            })
-            ->orderBy('id')
-            ->get();
-
-        $trabajadores = Trabajador::with('cargo')
-            ->where('estado', 'activo')
-            ->orderBy('nombre')
-            ->get();
-
-        $lotes = Lote::orderBy('nombre')->get();
-
-        return view('admin.actividades.edit', compact('actividad', 'tarifas', 'trabajadores', 'lotes'));
+        // La edición se hace ahora desde el modal en el index.
+        // Si alguien llega por URL directa, redirigir al index.
+        return redirect()->route('actividades.index');
     }
 
     /**
