@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Trabajador;
-use App\Models\Cargo;
 use Illuminate\Http\Request;
+use App\Models\Cargo;
 
 /**
  * TrabajadorController

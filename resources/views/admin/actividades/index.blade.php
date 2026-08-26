@@ -604,7 +604,7 @@ function calcularSubtotalEditar() {
 
 // ── Abrir modal de editar con datos del registro ────────────────
 function openEditActividadModal(id, trabajador_id, lote_id, tarifa_id, fecha, cantidad, pasada, observacion) {
-    document.getElementById('formEditarActividad').action = '/actividades/' + id;
+    document.getElementById('formEditarActividad').action = '{{ route("actividades.update", ":id") }}'.replace(':id', id);
     document.getElementById('editActSubtitle').textContent = 'Modificando actividad #' + id;
     document.getElementById('e_trabajador').value  = trabajador_id;
     document.getElementById('e_lote').value        = lote_id;

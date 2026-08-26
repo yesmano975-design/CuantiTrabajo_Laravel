@@ -39,7 +39,7 @@ Route::get('/', function () {
 // ═════════════════════════════════════════════════════════════════════════
 // GRUPO 1: Rutas accesibles para administrador y secretaria
 // ═════════════════════════════════════════════════════════════════════════
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'no-cache'])->group(function () {
 
     // ── Dashboard ──────────────────────────────────────────────────────
     // Muestra el resumen general del sistema (contadores de tarjetas).
@@ -71,6 +71,7 @@ Route::middleware(['auth'])->group(function () {
     // Gestión de liquidaciones semanales.
     // La ruta 'marcar-pagado' cambia el estado de un pago de pendiente a pagado.
     Route::resource('pagos', PagoController::class);
+    
     Route::patch('pagos/{pago}/marcar-pagado', [PagoController::class, 'marcarPagado'])
         ->name('pagos.marcarPagado');
 
@@ -80,7 +81,7 @@ Route::middleware(['auth'])->group(function () {
 // GRUPO 2: Rutas exclusivas del administrador
 // El middleware 'role:administrador' rechaza con 403 a la secretaria.
 // ═════════════════════════════════════════════════════════════════════════
-Route::middleware(['auth', 'role:administrador'])->group(function () {
+Route::middleware(['auth', 'role:administrador', 'no-cache'])->group(function () {
 
     // ── Usuarios del sistema ───────────────────────────────────────────
     // Gestión de cuentas de acceso al panel (crear admins y secretarias).
