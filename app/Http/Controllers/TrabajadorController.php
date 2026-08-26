@@ -74,7 +74,7 @@ class TrabajadorController extends Controller
             'documento' => $request->documento,
             'correo'    => $request->correo ?? '',
             'telefono'  => $request->telefono ?? '',
-            'estado'    => 'activo', // siempre activo al registrar
+            'estado'    =>  'activo',
         ]);
 
         return redirect()->route('trabajadores.index')

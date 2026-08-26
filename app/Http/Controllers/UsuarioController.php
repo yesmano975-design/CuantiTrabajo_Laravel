@@ -126,7 +126,7 @@ class UsuarioController extends Controller
         if ($request->filled('password')) {
             $datos['password'] = Hash::make($request->password);
         }
-
+ 
         $usuario->update($datos);
 
         return redirect()->route('usuarios.index')
