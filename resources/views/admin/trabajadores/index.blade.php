@@ -1,4 +1,4 @@
-@extends('layouts.sidebaradmin')
+﻿@extends('layouts.sidebaradmin')
 
 @section('tituloPagina', 'Trabajadores')
 
@@ -6,12 +6,12 @@
 
 {{-- Resumen de Métricas --}}
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
-    <div class="glass-card p-5 border-l-4 border-emerald-500 flex items-center justify-between">
+    <div class="glass-card p-5 border-l-4 border-blue-500 flex items-center justify-between">
         <div>
             <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Total Operarios</span>
             <div class="text-3xl font-display font-black text-slate-800 mt-1">{{ $trabajadores->count() }}</div>
         </div>
-        <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl shadow-sm">
+        <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl shadow-sm">
             <i class="fas fa-users"></i>
         </div>
     </div>
@@ -46,9 +46,9 @@
 
 {{-- Tabla Principal --}}
 <div class="glass-card overflow-hidden">
-    <div class="p-6 border-b border-slate-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-gradient-to-r from-slate-50/80 to-emerald-50/30">
+    <div class="p-6 border-b border-slate-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-gradient-to-r from-slate-50/80 to-blue-50/30">
         <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-forest text-emerald-300 flex items-center justify-center text-lg shadow-sm">
+            <div class="w-10 h-10 rounded-xl bg-forest text-blue-300 flex items-center justify-center text-lg shadow-sm">
                 <i class="fas fa-hard-hat"></i>
             </div>
             <div>
@@ -93,7 +93,7 @@
                         </td>
                         <td><span class="font-mono bg-slate-100 px-2 py-1 rounded text-xs text-slate-600 border border-slate-200">{{ $t->documento }}</span></td>
                         <td>
-                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-700 border border-blue-200">
                                 <i class="fas fa-briefcase text-[10px]"></i> {{ $t->cargo->nombre ?? 'Sin Cargo' }}
                             </span>
                         </td>
@@ -106,7 +106,7 @@
                         </td>
                         <td>
                             @if($t->estado === 'activo')
-                                <span class="badge-active"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Activo</span>
+                                <span class="badge-active"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> Activo</span>
                             @else
                                 <span class="badge-inactive"><span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span> Inactivo</span>
                             @endif
@@ -123,7 +123,7 @@
                                 <form action="{{ route('trabajadores.toggleEstado', $t) }}" method="POST" class="inline">
                                     @csrf @method('PATCH')
                                     <button type="submit"
-                                        class="w-8 h-8 rounded-lg {{ $t->estado==='activo'?'bg-slate-100 text-slate-600 hover:bg-slate-200':'bg-emerald-50 text-emerald-600 hover:bg-emerald-100' }} hover:scale-105 transition-all flex items-center justify-center shadow-sm"
+                                        class="w-8 h-8 rounded-lg {{ $t->estado==='activo'?'bg-slate-100 text-slate-600 hover:bg-slate-200':'bg-blue-50 text-blue-600 hover:bg-blue-100' }} hover:scale-105 transition-all flex items-center justify-center shadow-sm"
                                         title="{{ $t->estado==='activo'?'Desactivar':'Activar' }}"
                                         onclick="return swConfirm(this,'¿Cambiar el estado de este trabajador?','question','Sí, cambiar')">
                                         <i class="fas fa-{{ $t->estado==='activo'?'user-slash':'user-check' }} text-xs"></i>
@@ -161,9 +161,9 @@
     <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onclick="closeModal('modalCrear')"></div>
     <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
         {{-- Header --}}
-        <div class="p-5 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-emerald-50/40 flex items-center justify-between rounded-t-2xl">
+        <div class="p-5 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-blue-50/40 flex items-center justify-between rounded-t-2xl">
             <div class="flex items-center gap-3">
-                <div class="w-9 h-9 rounded-xl bg-emerald-500 text-white flex items-center justify-center shadow-sm">
+                <div class="w-9 h-9 rounded-xl bg-blue-500 text-white flex items-center justify-center shadow-sm">
                     <i class="fas fa-user-plus"></i>
                 </div>
                 <div>
@@ -183,7 +183,7 @@
                 <label class="block text-xs font-bold uppercase tracking-wider text-slate-600">Cargo Operativo <span class="text-rose-500">*</span></label>
                 <div class="relative">
                     <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400"><i class="fas fa-briefcase"></i></div>
-                    <select name="cargo_id" required class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-800 text-sm font-medium focus:outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all shadow-sm">
+                    <select name="cargo_id" required class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-800 text-sm font-medium focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm">
                         <option value="">-- Seleccionar Cargo --</option>
                         @foreach($cargos as $cargo)
                             <option value="{{ $cargo->id }}" {{ old('cargo_id')==$cargo->id?'selected':'' }}>{{ $cargo->nombre }}</option>
@@ -199,7 +199,7 @@
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400"><i class="fas fa-user"></i></div>
                         <input type="text" name="nombre" value="{{ old('nombre') }}" required placeholder="Ej. Juan Carlos"
-                               class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-800 text-sm font-medium focus:outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all shadow-sm">
+                               class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-800 text-sm font-medium focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm">
                     </div>
                     @error('nombre')<p class="text-xs text-rose-500 font-semibold mt-1"><i class="fas fa-circle-exclamation"></i> {{ $message }}</p>@enderror
                 </div>
@@ -208,7 +208,7 @@
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400"><i class="fas fa-user-group"></i></div>
                         <input type="text" name="apellido" value="{{ old('apellido') }}" placeholder="Ej. Pérez Gómez"
-                               class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-800 text-sm font-medium focus:outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all shadow-sm">
+                               class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-800 text-sm font-medium focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm">
                     </div>
                 </div>
             </div>
@@ -218,7 +218,7 @@
                 <div class="relative">
                     <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400"><i class="fas fa-id-card"></i></div>
                     <input type="text" name="documento" value="{{ old('documento') }}" required placeholder="Cédula de ciudadanía"
-                           class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-800 text-sm font-medium font-mono focus:outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all shadow-sm">
+                           class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-800 text-sm font-medium font-mono focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm">
                 </div>
                 @error('documento')<p class="text-xs text-rose-500 font-semibold mt-1"><i class="fas fa-circle-exclamation"></i> {{ $message }}</p>@enderror
             </div>
@@ -229,7 +229,7 @@
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400"><i class="fas fa-envelope"></i></div>
                         <input type="email" name="correo" value="{{ old('correo') }}" placeholder="ejemplo@correo.com"
-                               class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-800 text-sm font-medium focus:outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all shadow-sm">
+                               class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-800 text-sm font-medium focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm">
                     </div>
                 </div>
                 <div class="space-y-1.5">
@@ -237,7 +237,7 @@
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400"><i class="fas fa-phone"></i></div>
                         <input type="text" name="telefono" value="{{ old('telefono') }}" placeholder="300 123 4567"
-                               class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-800 text-sm font-medium font-mono focus:outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all shadow-sm">
+                               class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-800 text-sm font-medium font-mono focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm">
                     </div>
                 </div>
             </div>

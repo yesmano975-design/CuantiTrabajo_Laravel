@@ -1,13 +1,12 @@
-@extends('layouts.sidebaradmin')
+﻿@extends('layouts.sidebaradmin')
 @section('tituloPagina', 'Panel de Control')
 
 @section('content')
 
 {{-- Banner de bienvenida --}}
-<div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-forest-dark via-forest to-forest-light p-6 sm:p-8 mb-8 shadow-xl text-white border border-white/10">
-    <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+<div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-forest-dark via-forest to-forest-light p-6 sm:p-8 mb-8 shadow-xl text-white border border-white/10">    <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div class="max-w-2xl">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-emerald-200 border border-white/15 text-xs font-semibold uppercase tracking-wider mb-3">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-blue-200 border border-white/15 text-xs font-semibold uppercase tracking-wider mb-3">
                 <i class="fas fa-leaf"></i> Sistema de Gestión Agrícola
             </div>
             <h1 class="font-display text-2xl sm:text-3xl font-black text-white tracking-tight">
@@ -23,7 +22,7 @@
             </p>
             <div class="mt-5 flex flex-wrap items-center gap-3">
                 <a href="{{ route('actividades.index') }}"
-                   class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white text-forest font-bold text-xs hover:bg-emerald-50 transition-all shadow-sm">
+                   class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white text-forest font-bold text-xs hover:bg-blue-50 transition-all shadow-sm">
                     <i class="fas fa-plus"></i> Registrar Labor
                 </a>
                 <a href="{{ route('pagos.index') }}"
@@ -33,7 +32,7 @@
             </div>
         </div>
         <div class="hidden lg:flex items-center gap-4 bg-white/10 p-4 rounded-2xl border border-white/10">
-            <div class="w-12 h-12 rounded-xl bg-white/10 text-emerald-300 flex items-center justify-center text-2xl">
+            <div class="w-12 h-12 rounded-xl bg-white/10 text-blue-300 flex items-center justify-center text-2xl">
                 <i class="fas fa-chart-pie"></i>
             </div>
             <div class="text-right">
@@ -57,7 +56,7 @@
        class="group glass-card p-6 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between">
         <div>
             <div class="flex items-start justify-between mb-4">
-                <div class="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-lg shadow-sm group-hover:bg-emerald-700 group-hover:text-white transition-colors duration-200">
+                <div class="w-11 h-11 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center text-lg shadow-sm group-hover:bg-blue-700 group-hover:text-white transition-colors duration-200">
                     <i class="fas fa-person-digging"></i>
                 </div>
                 <span class="text-[10px] font-bold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-full uppercase tracking-wider">Activos</span>
@@ -65,7 +64,7 @@
             <div class="font-display text-3xl font-black text-slate-800 mb-1">{{ $totalTrabajadores }}</div>
             <div class="text-xs font-medium text-slate-500">Trabajadores registrados</div>
         </div>
-        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-emerald-700 font-semibold">
+        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-blue-700 font-semibold">
             <span>Gestionar cuadrilla</span>
             <i class="fas fa-arrow-right text-[11px] group-hover:translate-x-1 transition-transform"></i>
         </div>
@@ -76,7 +75,7 @@
        class="group glass-card p-6 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between">
         <div>
             <div class="flex items-start justify-between mb-4">
-                <div class="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-lg shadow-sm group-hover:bg-emerald-700 group-hover:text-white transition-colors duration-200">
+                <div class="w-11 h-11 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center text-lg shadow-sm group-hover:bg-blue-700 group-hover:text-white transition-colors duration-200">
                     <i class="fas fa-map-location-dot"></i>
                 </div>
                 <span class="text-[10px] font-bold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-full uppercase tracking-wider">Predios</span>
@@ -84,7 +83,7 @@
             <div class="font-display text-3xl font-black text-slate-800 mb-1">{{ $totalLotes }}</div>
             <div class="text-xs font-medium text-slate-500">Lotes de cultivo</div>
         </div>
-        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-emerald-700 font-semibold">
+        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-blue-700 font-semibold">
             <span>Ver mapa de lotes</span>
             <i class="fas fa-arrow-right text-[11px] group-hover:translate-x-1 transition-transform"></i>
         </div>
@@ -95,7 +94,7 @@
        class="group glass-card p-6 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between">
         <div>
             <div class="flex items-start justify-between mb-4">
-                <div class="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-lg shadow-sm group-hover:bg-emerald-700 group-hover:text-white transition-colors duration-200">
+                <div class="w-11 h-11 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center text-lg shadow-sm group-hover:bg-blue-700 group-hover:text-white transition-colors duration-200">
                     <i class="fas fa-clock-rotate-left"></i>
                 </div>
                 @if($actividadesPendientes > 0)
@@ -107,7 +106,7 @@
             <div class="font-display text-3xl font-black text-slate-800 mb-1">{{ $actividadesPendientes }}</div>
             <div class="text-xs font-medium text-slate-500">Actividades pendientes</div>
         </div>
-        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-emerald-700 font-semibold">
+        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-blue-700 font-semibold">
             <span>Confirmar labores</span>
             <i class="fas fa-arrow-right text-[11px] group-hover:translate-x-1 transition-transform"></i>
         </div>
@@ -118,7 +117,7 @@
        class="group glass-card p-6 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between">
         <div>
             <div class="flex items-start justify-between mb-4">
-                <div class="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-lg shadow-sm group-hover:bg-emerald-700 group-hover:text-white transition-colors duration-200">
+                <div class="w-11 h-11 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center text-lg shadow-sm group-hover:bg-blue-700 group-hover:text-white transition-colors duration-200">
                     <i class="fas fa-money-bill-transfer"></i>
                 </div>
                 <span class="text-[10px] font-bold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-full uppercase tracking-wider">Nómina</span>
@@ -126,7 +125,7 @@
             <div class="font-display text-3xl font-black text-slate-800 mb-1">{{ $pagosPendientes }}</div>
             <div class="text-xs font-medium text-slate-500">Semanas por liquidar</div>
         </div>
-        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-emerald-700 font-semibold">
+        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-blue-700 font-semibold">
             <span>Procesar nómina</span>
             <i class="fas fa-arrow-right text-[11px] group-hover:translate-x-1 transition-transform"></i>
         </div>
@@ -138,7 +137,7 @@
 <div class="glass-card p-6 sm:p-8">
     <div class="mb-6">
         <h3 class="font-display font-bold text-slate-800 text-base flex items-center gap-2">
-            <i class="fas fa-bolt text-emerald-600"></i> Accesos Directos
+            <i class="fas fa-bolt text-blue-600"></i> Accesos Directos
         </h3>
         <p class="text-xs text-slate-400 mt-0.5">Crea nuevos registros con un solo clic</p>
     </div>
@@ -146,52 +145,52 @@
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
 
         <a href="{{ route('actividades.index') }}"
-           class="flex flex-col items-center justify-center gap-2.5 p-4 rounded-xl border border-slate-200 hover:border-emerald-400 hover:bg-emerald-50/60 transition-all group text-center">
-            <div class="w-11 h-11 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center text-lg group-hover:bg-emerald-600 group-hover:text-white transition-colors shadow-sm">
+           class="flex flex-col items-center justify-center gap-2.5 p-4 rounded-xl border border-slate-200 hover:border-blue-400 hover:bg-blue-50/60 transition-all group text-center">
+            <div class="w-11 h-11 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center text-lg group-hover:bg-blue-600 group-hover:text-white transition-colors shadow-sm">
                 <i class="fas fa-plus"></i>
             </div>
-            <span class="text-[11px] font-semibold text-slate-600 group-hover:text-emerald-800">Nueva Labor</span>
+            <span class="text-[11px] font-semibold text-slate-600 group-hover:text-blue-800">Nueva Labor</span>
         </a>
 
         <a href="{{ route('trabajadores.index') }}"
-           class="flex flex-col items-center justify-center gap-2.5 p-4 rounded-xl border border-slate-200 hover:border-emerald-400 hover:bg-emerald-50/60 transition-all group text-center">
-            <div class="w-11 h-11 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center text-lg group-hover:bg-emerald-600 group-hover:text-white transition-colors shadow-sm">
+           class="flex flex-col items-center justify-center gap-2.5 p-4 rounded-xl border border-slate-200 hover:border-blue-400 hover:bg-blue-50/60 transition-all group text-center">
+            <div class="w-11 h-11 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center text-lg group-hover:bg-blue-600 group-hover:text-white transition-colors shadow-sm">
                 <i class="fas fa-user-plus"></i>
             </div>
-            <span class="text-[11px] font-semibold text-slate-600 group-hover:text-emerald-800">Operario</span>
+            <span class="text-[11px] font-semibold text-slate-600 group-hover:text-blue-800">Operario</span>
         </a>
 
         <a href="{{ route('lotes.index') }}"
-           class="flex flex-col items-center justify-center gap-2.5 p-4 rounded-xl border border-slate-200 hover:border-emerald-400 hover:bg-emerald-50/60 transition-all group text-center">
-            <div class="w-11 h-11 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center text-lg group-hover:bg-emerald-600 group-hover:text-white transition-colors shadow-sm">
+           class="flex flex-col items-center justify-center gap-2.5 p-4 rounded-xl border border-slate-200 hover:border-blue-400 hover:bg-blue-50/60 transition-all group text-center">
+            <div class="w-11 h-11 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center text-lg group-hover:bg-blue-600 group-hover:text-white transition-colors shadow-sm">
                 <i class="fas fa-map-location"></i>
             </div>
-            <span class="text-[11px] font-semibold text-slate-600 group-hover:text-emerald-800">Nuevo Lote</span>
+            <span class="text-[11px] font-semibold text-slate-600 group-hover:text-blue-800">Nuevo Lote</span>
         </a>
 
         <a href="{{ route('pagos.index') }}"
-           class="flex flex-col items-center justify-center gap-2.5 p-4 rounded-xl border border-slate-200 hover:border-emerald-400 hover:bg-emerald-50/60 transition-all group text-center">
-            <div class="w-11 h-11 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center text-lg group-hover:bg-emerald-600 group-hover:text-white transition-colors shadow-sm">
+           class="flex flex-col items-center justify-center gap-2.5 p-4 rounded-xl border border-slate-200 hover:border-blue-400 hover:bg-blue-50/60 transition-all group text-center">
+            <div class="w-11 h-11 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center text-lg group-hover:bg-blue-600 group-hover:text-white transition-colors shadow-sm">
                 <i class="fas fa-file-invoice-dollar"></i>
             </div>
-            <span class="text-[11px] font-semibold text-slate-600 group-hover:text-emerald-800">Liquidar Pagos</span>
+            <span class="text-[11px] font-semibold text-slate-600 group-hover:text-blue-800">Liquidar Pagos</span>
         </a>
 
         @if(Auth::user()->rol->nombre === 'administrador')
         <a href="{{ route('tarifas.index') }}"
-           class="flex flex-col items-center justify-center gap-2.5 p-4 rounded-xl border border-slate-200 hover:border-emerald-400 hover:bg-emerald-50/60 transition-all group text-center">
-            <div class="w-11 h-11 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center text-lg group-hover:bg-emerald-600 group-hover:text-white transition-colors shadow-sm">
+           class="flex flex-col items-center justify-center gap-2.5 p-4 rounded-xl border border-slate-200 hover:border-blue-400 hover:bg-blue-50/60 transition-all group text-center">
+            <div class="w-11 h-11 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center text-lg group-hover:bg-blue-600 group-hover:text-white transition-colors shadow-sm">
                 <i class="fas fa-coins"></i>
             </div>
-            <span class="text-[11px] font-semibold text-slate-600 group-hover:text-emerald-800">Tarifas</span>
+            <span class="text-[11px] font-semibold text-slate-600 group-hover:text-blue-800">Tarifas</span>
         </a>
 
         <a href="{{ route('usuarios.index') }}"
-           class="flex flex-col items-center justify-center gap-2.5 p-4 rounded-xl border border-slate-200 hover:border-emerald-400 hover:bg-emerald-50/60 transition-all group text-center">
-            <div class="w-11 h-11 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center text-lg group-hover:bg-emerald-600 group-hover:text-white transition-colors shadow-sm">
+           class="flex flex-col items-center justify-center gap-2.5 p-4 rounded-xl border border-slate-200 hover:border-blue-400 hover:bg-blue-50/60 transition-all group text-center">
+            <div class="w-11 h-11 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center text-lg group-hover:bg-blue-600 group-hover:text-white transition-colors shadow-sm">
                 <i class="fas fa-user-shield"></i>
             </div>
-            <span class="text-[11px] font-semibold text-slate-600 group-hover:text-emerald-800">Usuarios</span>
+            <span class="text-[11px] font-semibold text-slate-600 group-hover:text-blue-800">Usuarios</span>
         </a>
         @endif
 

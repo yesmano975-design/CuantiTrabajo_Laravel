@@ -11,21 +11,21 @@
                 extend: {
                     colors: {
                         brand: {
-                            50:  '#f0fdf4',
-                            100: '#dcfce7',
-                            200: '#bbf7d0',
-                            300: '#86efac',
-                            400: '#4ade80',
-                            500: '#22c55e',
-                            600: '#16a34a',
-                            700: '#15803d',
-                            800: '#166534',
-                            900: '#14532d',
+                            50:  '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
                         },
                         forest: {
-                            DEFAULT: '#1B4332',
-                            light:   '#2D6A4F',
-                            dark:    '#081C15',
+                            DEFAULT: '#1e3a8a',
+                            light:   '#2563eb',
+                            dark:    '#0f172a',
                         },
                         gold: '#F59E0B',
                     },
@@ -34,7 +34,7 @@
                         display: ['Outfit', 'sans-serif'],
                     },
                     boxShadow: {
-                        'glow': '0 0 35px -5px rgba(34, 197, 94, 0.35)',
+                        'glow': '0 0 35px -5px rgba(59, 130, 246, 0.45)',
                     }
                 }
             }
@@ -63,7 +63,6 @@
     </style>
 </head>
 <body class="h-full bg-slate-950 text-slate-100 antialiased selection:bg-brand-500 selection:text-white">
-
 <div class="min-h-screen flex flex-col md:flex-row">
 
     {{-- Left Showcase Carousel --}}
@@ -86,7 +85,7 @@
                 <span class="font-display font-black text-2xl tracking-tight text-white">
                     Cuanti<span class="text-brand-400">Trabajo</span>
                 </span>
-                <span class="block text-[10px] font-bold text-emerald-300 uppercase tracking-widest -mt-1">
+                <span class="block text-[10px] font-bold text-blue-300 uppercase tracking-widest -mt-1">
                     Gestión Agrícola Inteligente
                 </span>
             </div>
@@ -95,7 +94,7 @@
         {{-- Bottom Hero Content --}}
         <div class="relative z-20 max-w-lg space-y-6">
             
-            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/20 backdrop-blur-md border border-emerald-400/30 text-brand-300 text-xs font-bold">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/20 backdrop-blur-md border border-blue-400/30 text-brand-300 text-xs font-bold">
                 <i class="fas fa-sparkles"></i> Sistema de Nómina & Campo
             </div>
 
@@ -192,7 +191,7 @@
 
                 {{-- Submit Button --}}
                 <button type="submit"
-                        class="w-full py-4 rounded-xl bg-gradient-to-r from-brand-400 via-brand-500 to-brand-600 hover:from-brand-300 hover:to-brand-400 text-slate-950 font-black text-base shadow-glow hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center justify-center gap-2">
+                        class="w-full py-4 rounded-xl bg-gradient-to-r from-brand-500 via-brand-600 to-brand-700 hover:from-brand-400 hover:to-brand-600 text-white font-black text-base shadow-glow hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center justify-center gap-2">
                     <span>Acceder al Sistema</span>
                     <i class="fas fa-arrow-right text-sm"></i>
                 </button>
@@ -201,7 +200,7 @@
 
             {{-- Help / Back link --}}
             <div class="pt-6 border-t border-white/10 text-center flex items-center justify-between text-xs text-slate-400">
-                <a href="{{ url('/') }}" class="hover:text-brand-300 transition-colors flex items-center gap-1.5">
+                <a href="{{ url('/') }}" class="hover:text-blue-400 transition-colors flex items-center gap-1.5">
                     <i class="fas fa-arrow-left"></i> Volver a la portada
                 </a>
                 <span>CuantiTrabajo &copy; {{ date('Y') }}</span>

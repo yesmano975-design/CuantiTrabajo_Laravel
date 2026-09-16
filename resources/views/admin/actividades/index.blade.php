@@ -1,4 +1,4 @@
-@extends('layouts.sidebaradmin')
+﻿@extends('layouts.sidebaradmin')
 
 @section('tituloPagina', 'Actividades Laborales')
 
@@ -18,12 +18,12 @@
     </div>
 
     {{-- Confirmadas --}}
-    <div class="glass-card p-5 border-l-4 border-emerald-500 flex items-center justify-between">
+    <div class="glass-card p-5 border-l-4 border-blue-500 flex items-center justify-between">
         <div>
             <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Confirmadas (Válidas)</span>
-            <div class="text-3xl font-display font-black text-emerald-600 mt-1">{{ $confirmadas }}</div>
+            <div class="text-3xl font-display font-black text-blue-600 mt-1">{{ $confirmadas }}</div>
         </div>
-        <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl shadow-sm">
+        <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl shadow-sm">
             <i class="fas fa-circle-check"></i>
         </div>
     </div>
@@ -43,9 +43,9 @@
 {{-- Tabla Principal --}}
 <div class="glass-card overflow-hidden">
     {{-- Card Header --}}
-    <div class="p-6 border-b border-slate-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-gradient-to-r from-slate-50/80 to-emerald-50/30">
+    <div class="p-6 border-b border-slate-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-gradient-to-r from-slate-50/80 to-blue-50/30">
         <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-forest text-emerald-300 flex items-center justify-center text-lg shadow-sm">
+            <div class="w-10 h-10 rounded-xl bg-forest text-blue-300 flex items-center justify-center text-lg shadow-sm">
                 <i class="fas fa-clipboard-list"></i>
             </div>
             <div>
@@ -92,7 +92,7 @@
                         </td>
                         <td>
                             <div class="font-bold text-slate-800">{{ $act->trabajador->nombre ?? '-' }} {{ $act->trabajador->apellido ?? '' }}</div>
-                            <div class="text-xs text-emerald-700 font-medium">{{ $act->trabajador->cargo->nombre ?? 'Sin cargo' }}</div>
+                            <div class="text-xs text-blue-700 font-medium">{{ $act->trabajador->cargo->nombre ?? 'Sin cargo' }}</div>
                         </td>
                         <td>
                             <div class="font-medium text-slate-800">{{ $act->valorActividad->tipoActividad->nombre ?? '-' }}</div>
@@ -100,7 +100,7 @@
                         </td>
                         <td>
                             <span class="inline-flex items-center gap-1 font-semibold text-slate-700 text-xs">
-                                <i class="fas fa-map-pin text-emerald-600 text-[10px]"></i>
+                                <i class="fas fa-map-pin text-blue-600 text-[10px]"></i>
                                 {{ $act->lote->nombre ?? '-' }}
                             </span>
                             <span class="block text-[10px] text-slate-400 font-mono">{{ $act->lote->referencia ?? '' }}</span>
@@ -116,13 +116,13 @@
                         <td class="text-right font-mono text-xs text-slate-600">
                             ${{ number_format($valorUnit, 0, ',', '.') }}
                         </td>
-                        <td class="text-right font-mono font-bold text-emerald-700">
+                        <td class="text-right font-mono font-bold text-blue-700">
                             ${{ number_format($subtotal, 0, ',', '.') }}
                         </td>
                         <td class="text-center">
                             @if($act->estado_confirmacion === 'confirmado')
                                 <span class="badge-active">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Confirmado
+                                    <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> Confirmado
                                 </span>
                             @elseif($act->estado_confirmacion === 'pendiente')
                                 <span class="badge-pending">
@@ -162,7 +162,7 @@
                                     @csrf @method('PATCH')
                                     <input type="hidden" name="estado_confirmacion" value="confirmado">
                                     <button type="submit"
-                                        class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 hover:bg-emerald-100 transition-all flex items-center justify-center shadow-sm"
+                                        class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 transition-all flex items-center justify-center shadow-sm"
                                         title="Aprobar y Confirmar"
                                         onclick="return swConfirm(this, '¿Confirmar esta actividad para liquidación?', 'question', 'Sí, confirmar')">
                                         <i class="fas fa-check text-xs"></i>
@@ -224,13 +224,13 @@
 
     {{-- Footer Summary Bar --}}
     @if($actividades->count() > 0)
-    <div class="p-4 bg-emerald-50/50 border-t border-emerald-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+    <div class="p-4 bg-blue-50/50 border-t border-blue-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
         <div class="text-slate-600 font-medium">
             Mostrando registros de labores agrícolas
         </div>
         <div class="flex items-center gap-2">
             <span class="font-bold text-slate-600 uppercase">Subtotal Total Confirmado:</span>
-            <span class="font-display font-black text-base text-emerald-700 font-mono">
+            <span class="font-display font-black text-base text-blue-700 font-mono">
                 ${{ number_format(
                     $actividades->where('estado_confirmacion','confirmado')
                         ->sum(fn($a) => $a->cantidad * ($a->valorActividad->valor_unitario ?? 0) * $a->numero_pasada),
@@ -253,9 +253,9 @@
     <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[92vh] overflow-y-auto">
 
         {{-- Header --}}
-        <div class="flex items-center justify-between p-6 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-emerald-50/40 rounded-t-2xl">
+        <div class="flex items-center justify-between p-6 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-blue-50/40 rounded-t-2xl">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-emerald-500 text-white flex items-center justify-center shadow-sm">
+                <div class="w-10 h-10 rounded-xl bg-blue-500 text-white flex items-center justify-center shadow-sm">
                     <i class="fas fa-clipboard-plus"></i>
                 </div>
                 <div>
@@ -287,7 +287,7 @@
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400"><i class="fas fa-user-check"></i></div>
                         <select name="trabajador_id" required
-                                class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-800 text-sm font-medium focus:outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all shadow-sm">
+                                class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-800 text-sm font-medium focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm">
                             <option value="">-- Seleccionar Trabajador --</option>
                             @foreach($trabajadores as $t)
                                 <option value="{{ $t->id }}" {{ old('trabajador_id')==$t->id?'selected':'' }}>
@@ -302,7 +302,7 @@
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400"><i class="fas fa-map-location-dot"></i></div>
                         <select name="lote_id" required
-                                class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-800 text-sm font-medium focus:outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all shadow-sm">
+                                class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-800 text-sm font-medium focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm">
                             <option value="">-- Seleccionar Lote --</option>
                             @foreach($lotes as $lote)
                                 <option value="{{ $lote->id }}" {{ old('lote_id')==$lote->id?'selected':'' }}>
@@ -320,7 +320,7 @@
                 <div class="relative">
                     <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400"><i class="fas fa-tags"></i></div>
                     <select name="valor_actividad_id" id="m_tarifaSelect" required
-                            class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-800 text-sm font-medium focus:outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all shadow-sm">
+                            class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-800 text-sm font-medium focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm">
                         <option value="" data-valor="0" data-unidad="">-- Seleccione la tarifa --</option>
                         @foreach($tarifas as $tarifa)
                             <option value="{{ $tarifa->id }}"
@@ -341,15 +341,15 @@
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400"><i class="fas fa-calendar"></i></div>
                         <input type="date" name="fecha" value="{{ old('fecha', date('Y-m-d')) }}" max="{{ date('Y-m-d') }}" required
-                               class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-800 text-sm font-medium focus:outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all shadow-sm">
+                               class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-800 text-sm font-medium focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm">
                     </div>
                 </div>
                 <div class="space-y-1.5">
-                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-600">Cantidad <span id="m_unidadLabel" class="text-emerald-600 lowercase font-normal"></span> <span class="text-rose-500">*</span></label>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-600">Cantidad <span id="m_unidadLabel" class="text-blue-600 lowercase font-normal"></span> <span class="text-rose-500">*</span></label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400"><i class="fas fa-calculator"></i></div>
                         <input type="number" name="cantidad" id="m_cantidadInput" value="{{ old('cantidad', 1) }}" min="1" required
-                               class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-800 text-sm font-medium font-mono focus:outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all shadow-sm">
+                               class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-800 text-sm font-medium font-mono focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm">
                     </div>
                 </div>
                 <div class="space-y-1.5">
@@ -357,7 +357,7 @@
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400"><i class="fas fa-repeat"></i></div>
                         <input type="number" name="numero_pasada" id="m_pasadaInput" value="{{ old('numero_pasada', 1) }}" min="1" required
-                               class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-800 text-sm font-medium font-mono focus:outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all shadow-sm">
+                               class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-800 text-sm font-medium font-mono focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm">
                     </div>
                 </div>
             </div>
@@ -366,13 +366,13 @@
             <div class="space-y-1.5">
                 <label class="block text-xs font-bold uppercase tracking-wider text-slate-600">Observaciones (Opcional)</label>
                 <textarea name="observacion" rows="2" placeholder="Notas sobre el clima, máquina utilizada o novedades..."
-                          class="w-full p-4 rounded-xl border border-slate-200 bg-white text-slate-800 text-sm font-medium focus:outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all shadow-sm">{{ old('observacion') }}</textarea>
+                          class="w-full p-4 rounded-xl border border-slate-200 bg-white text-slate-800 text-sm font-medium focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm">{{ old('observacion') }}</textarea>
             </div>
 
             {{-- Widget Subtotal en vivo --}}
-            <div class="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-400/30 flex items-center justify-between gap-4">
+            <div class="p-4 rounded-2xl bg-blue-500/10 border border-blue-400/30 flex items-center justify-between gap-4">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center shadow-sm">
+                    <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center shadow-sm">
                         <i class="fas fa-receipt"></i>
                     </div>
                     <div>
@@ -380,7 +380,7 @@
                         <div id="m_subtotalFormula" class="text-xs text-slate-500 font-mono mt-0.5">Selecciona tarifa, cantidad y pasadas</div>
                     </div>
                 </div>
-                <div id="m_subtotalValor" class="font-display font-black text-2xl text-emerald-700 font-mono">$0</div>
+                <div id="m_subtotalValor" class="font-display font-black text-2xl text-blue-700 font-mono">$0</div>
             </div>
 
             {{-- Botones --}}

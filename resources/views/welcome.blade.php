@@ -11,22 +11,22 @@
                 extend: {
                     colors: {
                         brand: {
-                            50:  '#f0fdf4',
-                            100: '#dcfce7',
-                            200: '#bbf7d0',
-                            300: '#86efac',
-                            400: '#4ade80',
-                            500: '#22c55e',
-                            600: '#16a34a',
-                            700: '#15803d',
-                            800: '#166534',
-                            900: '#14532d',
-                            950: '#052e16',
+                            50:  '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                            950: '#172554',
                         },
                         forest: {
-                            DEFAULT: '#1B4332',
-                            light:   '#2D6A4F',
-                            dark:    '#081C15',
+                            DEFAULT: '#1e3a8a',
+                            light:   '#2563eb',
+                            dark:    '#0f172a',
                         },
                         gold: '#F59E0B',
                     },
@@ -35,7 +35,7 @@
                         display: ['Outfit', 'sans-serif'],
                     },
                     boxShadow: {
-                        'glow': '0 0 40px -10px rgba(34, 197, 94, 0.35)',
+                        'glow': '0 0 40px -10px rgba(59, 130, 246, 0.45)',
                         'gold-glow': '0 0 35px -5px rgba(245, 158, 11, 0.3)',
                     }
                 }
@@ -51,8 +51,8 @@
         h1,h2,h3,h4,h5,h6,.font-display { font-family: 'Outfit', sans-serif; }
         
         .hero-pattern {
-            background-color: #081C15;
-            background-image: radial-gradient(rgba(34, 197, 94, 0.15) 1px, transparent 1px), radial-gradient(rgba(34, 197, 94, 0.08) 1px, #081C15 1px);
+            background-color: #0f172a;
+            background-image: radial-gradient(rgba(59, 130, 246, 0.15) 1px, transparent 1px), radial-gradient(rgba(59, 130, 246, 0.08) 1px, #0f172a 1px);
             background-size: 40px 40px;
             background-position: 0 0, 20px 20px;
         }
@@ -87,7 +87,7 @@
                     <span class="font-display font-black text-2xl tracking-tight text-white group-hover:text-brand-300 transition-colors">
                         Cuanti<span class="text-brand-400">Trabajo</span>
                     </span>
-                    <span class="block text-[10px] font-bold text-emerald-300/80 uppercase tracking-widest -mt-1">
+                    <span class="block text-[10px] font-bold text-blue-300/80 uppercase tracking-widest -mt-1">
                         Agritech Intelligence
                     </span>
                 </div>
@@ -123,7 +123,6 @@
         
         {{-- Background Video Container --}}
         <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
-            {{-- Lighter, Transparent Overlay for Vibrant & Clear Video Visibility --}}
             <div class="absolute inset-0 bg-gradient-to-b from-forest-dark/40 via-forest-dark/25 to-slate-950/80 z-10"></div>
             <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-forest-dark/20 to-forest-dark/70 z-10"></div>
 
@@ -142,10 +141,10 @@
                 <source src="{{ asset('video/hero.mp4') }}" type="video/mp4">
             </video>
 
-            {{-- YouTube Video Background --}}
+            {{-- YouTube Video Background (Starts at opacity-0, fades in on PLAYING state to eliminate Play icon flash) --}}
             <iframe 
                 id="hero-bg-video"
-                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-[300%] h-[300%] sm:w-[200%] sm:h-[200%] lg:w-[150%] lg:h-[150%] object-cover pointer-events-none opacity-85 transition-opacity duration-700 -z-10"
+                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-[300%] h-[300%] sm:w-[200%] sm:h-[200%] lg:w-[150%] lg:h-[150%] object-cover pointer-events-none opacity-0 transition-opacity duration-700 -z-10"
                 src="https://www.youtube-nocookie.com/embed/7czWIk0laGI?autoplay=1&mute=1&loop=1&playlist=7czWIk0laGI&controls=0&showinfo=0&rel=0&iv_load_policy=3&disablekb=1&modestbranding=1&playsinline=1&enablejsapi=1"
                 title="CuantiTrabajo Video Background"
                 frameborder="0"
@@ -155,7 +154,7 @@
         </div>
 
         {{-- Background Glow Blobs --}}
-        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-brand-500/20 blur-[140px] pointer-events-none rounded-full z-10"></div>
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-blue-500/20 blur-[140px] pointer-events-none rounded-full z-10"></div>
         <div class="absolute top-1/3 right-10 w-[400px] h-[400px] bg-amber-500/15 blur-[120px] pointer-events-none rounded-full z-10"></div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 w-full">
@@ -165,7 +164,7 @@
                 <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
                     
                     {{-- Badge --}}
-                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel border border-brand-400/30 text-brand-300 text-xs font-bold uppercase tracking-wider shadow-sm backdrop-blur-md">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel border border-brand-400/30 text-blue-300 text-xs font-bold uppercase tracking-wider shadow-sm backdrop-blur-md">
                         <span class="w-2 h-2 rounded-full bg-brand-400 animate-ping"></span>
                         <i class="fas fa-seedling text-brand-400"></i>
                         Software Agrícola de Precisión & Liquidación
@@ -174,7 +173,7 @@
                     {{-- Headline --}}
                     <h1 class="font-display font-black text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.08] text-white drop-shadow-[0_4px_14px_rgba(0,0,0,0.85)]">
                         Control Total de tus <br>
-                        <span class="bg-gradient-to-r from-brand-300 via-brand-400 to-emerald-200 bg-clip-text text-transparent">
+                        <span class="bg-gradient-to-r from-brand-300 via-brand-400 to-blue-200 bg-clip-text text-transparent">
                             Jornales, Lotes y Pagos
                         </span>
                     </h1>
@@ -194,7 +193,7 @@
                         </a>
                         <a href="#modulos"
                            class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-2xl glass-panel hover:bg-white/10 text-white font-bold text-base border border-white/15 hover:border-white/30 transition-all">
-                            <i class="fas fa-layer-group text-emerald-400"></i>
+                            <i class="fas fa-layer-group text-blue-400"></i>
                             Conocer Módulos
                         </a>
                     </div>
@@ -231,7 +230,7 @@
                             <div class="absolute inset-0 bg-gradient-to-t from-forest-dark/90 via-forest-dark/30 to-transparent"></div>
                             
                             <div class="absolute bottom-4 left-4 right-4">
-                                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/30 backdrop-blur-md text-brand-300 text-xs font-bold border border-emerald-400/30 mb-1.5">
+                                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/30 backdrop-blur-md text-brand-300 text-xs font-bold border border-blue-400/30 mb-1.5">
                                     <i class="fas fa-check-circle"></i> Sistema Activo
                                 </div>
                                 <h3 class="font-display font-bold text-lg text-white">Monitoreo y Liquidación CuantiTrabajo</h3>
@@ -245,7 +244,7 @@
                                 <div class="flex items-center gap-2 text-xs text-slate-400 mb-1">
                                     <i class="fas fa-calculator text-brand-400"></i> Liquidación Semanal
                                 </div>
-                                <div class="font-display font-bold text-lg text-emerald-300">Cálculo Automático</div>
+                                <div class="font-display font-bold text-lg text-blue-300">Cálculo Automático</div>
                                 <div class="text-[11px] text-slate-400">Tarifa × Pasadas × Cantidad</div>
                             </div>
                             <div class="p-3.5 rounded-xl bg-white/5 border border-white/10">
@@ -266,7 +265,7 @@
                         </div>
                         <div>
                             <div class="text-xs font-bold text-white">Validación al Instante</div>
-                            <div class="text-[10px] text-emerald-300">Actividades Confirmadas</div>
+                            <div class="text-[10px] text-blue-300">Actividades Confirmadas</div>
                         </div>
                     </div>
 
@@ -291,8 +290,7 @@
     <section id="galeria" class="py-20 bg-slate-950 border-t border-white/10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-14">
-                <span class="text-brand-400 font-bold text-xs uppercase tracking-widest">Tecnología de Punta</span>
-                <h2 class="font-display font-black text-3xl sm:text-4xl text-white mt-2">
+                <span class="text-brand-400 font-bold text-xs uppercase tracking-widest">Tecnología de Punta</span>                <h2 class="font-display font-black text-3xl sm:text-4xl text-white mt-2">
                     Diseñado para la Realidad del Campo Colombiano
                 </h2>
                 <p class="text-slate-400 text-sm sm:text-base mt-3">
@@ -309,15 +307,14 @@
                              alt="Monitoreo inteligente con drones"
                              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
-                        <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-slate-900/80 backdrop-blur-md text-emerald-300 text-xs font-bold border border-emerald-400/30">
+                        <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-slate-900/80 backdrop-blur-md text-blue-300 text-xs font-bold border border-blue-400/30">
                             <i class="fas fa-drone mr-1"></i> Precisión
                         </span>
                     </div>
                     <div class="p-6">
                         <h3 class="font-display font-bold text-xl text-white group-hover:text-brand-300 transition-colors">
                             Monitoreo de Lotes y Terrenos
-                        </h3>
-                        <p class="text-slate-400 text-xs sm:text-sm mt-2 leading-relaxed">
+                        </h3>                        <p class="text-slate-400 text-xs sm:text-sm mt-2 leading-relaxed">
                             Organiza hectáreas, coordenadas y tipos de cultivo para una asignación clara del personal diario.
                         </p>
                     </div>
@@ -370,12 +367,11 @@
     </section>
 
     {{-- CORE MODULES GRID --}}
-    <section id="modulos" class="py-24 bg-[#0a1a12] relative overflow-hidden">
+    <section id="modulos" class="py-24 bg-[#0d1b36] relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             
             <div class="text-center max-w-3xl mx-auto mb-16">
-                <span class="text-brand-400 font-bold text-xs uppercase tracking-widest">Ecosistema Integral</span>
-                <h2 class="font-display font-black text-3xl sm:text-4xl text-white mt-2">
+                <span class="text-brand-400 font-bold text-xs uppercase tracking-widest">Ecosistema Integral</span>                <h2 class="font-display font-black text-3xl sm:text-4xl text-white mt-2">
                     Módulos Especializados de CuantiTrabajo
                 </h2>
                 <p class="text-slate-300 text-sm sm:text-base mt-3">
@@ -387,7 +383,7 @@
 
                 {{-- Módulo 1: Trabajadores --}}
                 <div class="p-7 rounded-3xl glass-panel border border-white/10 hover:border-brand-400/40 transition-all duration-300 hover:-translate-y-2 group">
-                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center text-white text-2xl mb-6 shadow-glow group-hover:scale-110 transition-transform">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white text-2xl mb-6 shadow-glow group-hover:scale-110 transition-transform">
                         <i class="fas fa-users-gear"></i>
                     </div>
                     <h3 class="font-display font-bold text-xl text-white mb-2 group-hover:text-brand-300 transition-colors">
@@ -451,16 +447,16 @@
 
                 {{-- Módulo 5: Pagos Semanales --}}
                 <div class="p-7 rounded-3xl glass-panel border border-white/10 hover:border-brand-400/40 transition-all duration-300 hover:-translate-y-2 group">
-                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center text-white text-2xl mb-6 shadow-glow group-hover:scale-110 transition-transform">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-400 to-indigo-600 flex items-center justify-center text-white text-2xl mb-6 shadow-glow group-hover:scale-110 transition-transform">
                         <i class="fas fa-file-invoice-dollar"></i>
                     </div>
-                    <h3 class="font-display font-bold text-xl text-white mb-2 group-hover:text-emerald-300 transition-colors">
+                    <h3 class="font-display font-bold text-xl text-white mb-2 group-hover:text-blue-300 transition-colors">
                         Liquidación Semanal
                     </h3>
                     <p class="text-slate-300 text-sm leading-relaxed mb-4">
                         Cierre de ciclo semanal por trabajador con desglose detallado, generación de comprobantes y listos para desembolso.
                     </p>
-                    <div class="flex items-center text-xs font-bold text-emerald-400 group-hover:translate-x-1 transition-transform">
+                    <div class="flex items-center text-xs font-bold text-blue-400 group-hover:translate-x-1 transition-transform">
                         <span>Ver más detalles</span> <i class="fas fa-chevron-right text-[10px] ml-1.5"></i>
                     </div>
                 </div>
@@ -524,7 +520,7 @@
 
                 {{-- Step 3 --}}
                 <div class="p-8 rounded-3xl bg-slate-800/60 border border-white/10 text-center relative">
-                    <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-300 font-display font-black text-xl flex items-center justify-center mx-auto mb-6 border border-emerald-400/30">
+                    <div class="w-12 h-12 rounded-2xl bg-blue-500/20 text-blue-300 font-display font-black text-xl flex items-center justify-center mx-auto mb-6 border border-blue-400/30">
                         3
                     </div>
                     <h3 class="font-display font-bold text-xl text-white mb-3">Liquida e Imprime</h3>
@@ -549,15 +545,15 @@
                     <h2 class="font-display font-black text-3xl sm:text-4xl text-white">
                         ¿Listo para llevar tu finca al siguiente nivel?
                     </h2>
-                    <p class="text-emerald-100/80 text-sm sm:text-base">
+                    <p class="text-blue-100/80 text-sm sm:text-base">
                         Ingresa a tu cuenta y comienza a registrar actividades, controlar lotes y gestionar la nómina de tus trabajadores hoy mismo.
                     </p>
                 </div>
 
                 <div class="relative z-10 flex-shrink-0">
                     <a href="{{ route('login') }}"
-                       class="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-white text-forest font-black text-base hover:bg-brand-50 hover:shadow-glow hover:scale-105 transition-all shadow-xl">
-                        <i class="fas fa-arrow-right-to-bracket text-emerald-600"></i>
+                       class="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-white text-slate-900 font-black text-base hover:bg-blue-50 hover:shadow-glow hover:scale-105 transition-all shadow-xl">
+                        <i class="fas fa-arrow-right-to-bracket text-blue-600"></i>
                         Ingresar a CuantiTrabajo
                     </a>
                 </div>
@@ -571,7 +567,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
             
             <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-xl bg-brand-500 flex items-center justify-center text-slate-950 font-black">
+                <div class="w-8 h-8 rounded-xl bg-brand-500 flex items-center justify-center text-white font-black">
                     <i class="fas fa-tractor text-sm"></i>
                 </div>
                 <span class="font-display font-bold text-white text-base">CuantiTrabajo</span>

@@ -1,4 +1,4 @@
-@extends('layouts.sidebaradmin')
+﻿@extends('layouts.sidebaradmin')
 
 @section('tituloPagina', 'Tarifas')
 
@@ -7,9 +7,9 @@
 {{-- Tabla Principal --}}
 <div class="glass-card overflow-hidden">
     {{-- Card Header --}}
-    <div class="p-6 border-b border-slate-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-gradient-to-r from-slate-50/80 to-emerald-50/30">
+    <div class="p-6 border-b border-slate-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-gradient-to-r from-slate-50/80 to-blue-50/30">
         <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-forest text-emerald-300 flex items-center justify-center text-lg shadow-sm">
+            <div class="w-10 h-10 rounded-xl bg-forest text-blue-300 flex items-center justify-center text-lg shadow-sm">
                 <i class="fas fa-dollar-sign"></i>
             </div>
             <div>
@@ -25,7 +25,7 @@
 
     {{-- Alertas --}}
     @if(session('success'))
-    <div class="mx-6 mt-4 px-4 py-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 text-sm flex items-center gap-2">
+    <div class="mx-6 mt-4 px-4 py-3 rounded-xl bg-blue-50 border border-blue-200 text-blue-700 text-sm flex items-center gap-2">
         <i class="fas fa-circle-check"></i> {{ session('success') }}
     </div>
     @endif
@@ -66,7 +66,7 @@
                             </span>
                         </td>
                         <td class="text-right">
-                            <span class="font-display font-black text-emerald-700 text-base font-mono">
+                            <span class="font-display font-black text-blue-700 text-base font-mono">
                                 ${{ number_format($tarifa->valor_unitario, 2) }}
                             </span>
                         </td>
@@ -79,7 +79,7 @@
                         <td>
                             @if($tarifa->estado === 'activo')
                                 <span class="badge-active">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Activa
+                                    <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> Activa
                                 </span>
                             @else
                                 <span class="badge-inactive">
@@ -134,7 +134,7 @@
         {{-- Header --}}
         <div class="flex items-center justify-between p-6 border-b border-slate-100">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg">
+                <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-lg">
                     <i class="fas fa-plus"></i>
                 </div>
                 <div>
@@ -170,7 +170,7 @@
                         Tipo de Actividad <span class="text-rose-500">*</span>
                     </label>
                     <select name="tipo_actividad_id" required
-                        class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition text-sm text-slate-800 bg-white">
+                        class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition text-sm text-slate-800 bg-white">
                         <option value="" disabled {{ old('tipo_actividad_id') ? '' : 'selected' }}>Seleccionar actividad...</option>
                         @foreach($tipos as $tipo)
                         <option value="{{ $tipo->id }}" {{ old('tipo_actividad_id') == $tipo->id ? 'selected' : '' }}>
@@ -188,7 +188,7 @@
                     <input type="number" name="valor_unitario" value="{{ old('valor_unitario') }}"
                         required step="0.01" min="0.01"
                         placeholder="0.00"
-                        class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition text-sm font-mono placeholder-slate-400">
+                        class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition text-sm font-mono placeholder-slate-400">
                 </div>
 
                 {{-- Fecha Inicio --}}
@@ -197,7 +197,7 @@
                         Fecha Inicio <span class="text-rose-500">*</span>
                     </label>
                     <input type="date" name="fecha_inicio" value="{{ old('fecha_inicio', date('Y-m-d')) }}" required
-                        class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition text-sm text-slate-800">
+                        class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition text-sm text-slate-800">
                 </div>
 
                 {{-- Fecha Fin --}}
@@ -206,7 +206,7 @@
                         Fecha Fin <span class="text-slate-400 font-normal normal-case">(opcional)</span>
                     </label>
                     <input type="date" name="fecha_fin" value="{{ old('fecha_fin') }}"
-                        class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition text-sm text-slate-800">
+                        class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition text-sm text-slate-800">
                 </div>
             </div>
 
@@ -217,7 +217,7 @@
                     Cancelar
                 </button>
                 <button type="submit"
-                    class="px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm transition shadow-sm flex items-center gap-2">
+                    class="px-6 py-2.5 rounded-xl bg-blue-500 hover:bg-blue-600 text-white font-bold text-sm transition shadow-sm flex items-center gap-2">
                     <i class="fas fa-floppy-disk"></i> Guardar Tarifa
                 </button>
             </div>

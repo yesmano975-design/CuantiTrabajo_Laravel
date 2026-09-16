@@ -1,4 +1,4 @@
-@extends('layouts.sidebaradmin')
+﻿@extends('layouts.sidebaradmin')
 
 @section('tituloPagina', 'Lotes de Cultivo')
 
@@ -18,12 +18,12 @@
     </div>
 
     {{-- Total Hectáreas --}}
-    <div class="glass-card p-5 border-l-4 border-emerald-500 flex items-center justify-between">
+    <div class="glass-card p-5 border-l-4 border-blue-500 flex items-center justify-between">
         <div>
             <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Área Total Administrada</span>
-            <div class="text-3xl font-display font-black text-emerald-600 mt-1">{{ number_format($totalHectareas, 2) }} <span class="text-base font-normal text-slate-500">ha</span></div>
+            <div class="text-3xl font-display font-black text-blue-600 mt-1">{{ number_format($totalHectareas, 2) }} <span class="text-base font-normal text-slate-500">ha</span></div>
         </div>
-        <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl shadow-sm">
+        <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl shadow-sm">
             <i class="fas fa-seedling"></i>
         </div>
     </div>
@@ -50,7 +50,7 @@
 
     {{-- Alertas --}}
     @if(session('success'))
-    <div class="mx-6 mt-4 px-4 py-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 text-sm flex items-center gap-2">
+    <div class="mx-6 mt-4 px-4 py-3 rounded-xl bg-blue-50 border border-blue-200 text-blue-700 text-sm flex items-center gap-2">
         <i class="fas fa-circle-check"></i> {{ session('success') }}
     </div>
     @endif
@@ -99,7 +99,7 @@
                             {{ $lote->ubicacion ?: '-' }}
                         </td>
                         <td>
-                            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-700 border border-blue-200">
                                 <i class="fas fa-vector-square text-[10px]"></i>
                                 {{ number_format($lote->tamano_hectareas, 2) }} ha
                             </span>

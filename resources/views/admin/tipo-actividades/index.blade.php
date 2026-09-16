@@ -1,4 +1,4 @@
-@extends('layouts.sidebaradmin')
+﻿@extends('layouts.sidebaradmin')
 
 @section('tituloPagina', 'Tipos de Actividad')
 
@@ -7,9 +7,9 @@
 {{-- Tabla Principal --}}
 <div class="glass-card overflow-hidden">
     {{-- Card Header --}}
-    <div class="p-6 border-b border-slate-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-gradient-to-r from-slate-50/80 to-emerald-50/30">
+    <div class="p-6 border-b border-slate-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-gradient-to-r from-slate-50/80 to-blue-50/30">
         <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-forest text-emerald-300 flex items-center justify-center text-lg shadow-sm">
+            <div class="w-10 h-10 rounded-xl bg-forest text-blue-300 flex items-center justify-center text-lg shadow-sm">
                 <i class="fas fa-tags"></i>
             </div>
             <div>
@@ -25,7 +25,7 @@
 
     {{-- Alertas --}}
     @if(session('success'))
-    <div class="mx-6 mt-4 px-4 py-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 text-sm flex items-center gap-2">
+    <div class="mx-6 mt-4 px-4 py-3 rounded-xl bg-blue-50 border border-blue-200 text-blue-700 text-sm flex items-center gap-2">
         <i class="fas fa-circle-check"></i> {{ session('success') }}
     </div>
     @endif
@@ -55,7 +55,7 @@
                         <td class="font-bold text-slate-400 text-xs">#{{ $tipo->id }}</td>
                         <td>
                             <div class="flex items-center gap-3">
-                                <div class="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center justify-center text-sm font-bold shadow-inner">
+                                <div class="w-9 h-9 rounded-xl bg-blue-50 text-blue-700 border border-blue-200 flex items-center justify-center text-sm font-bold shadow-inner">
                                     <i class="fas fa-hand-holding-seedling"></i>
                                 </div>
                                 <span class="font-bold text-slate-800">{{ $tipo->nombre }}</span>
@@ -77,7 +77,7 @@
                                     {{ $tipo->valor_actividades_count }} tarifa(s)
                                 </span>
                                 <a href="{{ route('tarifas.create') }}?tipo={{ $tipo->id }}"
-                                   class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 hover:bg-emerald-100 transition-all flex items-center justify-center shadow-sm"
+                                   class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 transition-all flex items-center justify-center shadow-sm"
                                    title="Crear tarifa para este tipo">
                                     <i class="fas fa-plus text-xs"></i>
                                 </a>
@@ -130,7 +130,7 @@
         {{-- Header --}}
         <div class="flex items-center justify-between p-6 border-b border-slate-100">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg">
+                <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-lg">
                     <i class="fas fa-plus"></i>
                 </div>
                 <div>
@@ -166,7 +166,7 @@
                 </label>
                 <input type="text" name="nombre" value="{{ old('nombre') }}" required
                     placeholder="Ej: Fumigación, Recolección, Poda..."
-                    class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition text-sm text-slate-800 placeholder-slate-400">
+                    class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition text-sm text-slate-800 placeholder-slate-400">
             </div>
 
             {{-- Descripción --}}
@@ -176,7 +176,7 @@
                 </label>
                 <textarea name="descripcion" rows="2"
                     placeholder="Descripción breve de la actividad..."
-                    class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition text-sm text-slate-800 placeholder-slate-400 resize-none">{{ old('descripcion') }}</textarea>
+                    class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition text-sm text-slate-800 placeholder-slate-400 resize-none">{{ old('descripcion') }}</textarea>
             </div>
 
             {{-- Unidad de Medida --}}
@@ -185,7 +185,7 @@
                     Unidad de Medida <span class="text-rose-500">*</span>
                 </label>
                 <select name="unidad_medida" required
-                    class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition text-sm text-slate-800 bg-white">
+                    class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition text-sm text-slate-800 bg-white">
                     <option value="" disabled {{ old('unidad_medida') ? '' : 'selected' }}>Seleccionar unidad...</option>
                     <option value="horas"     {{ old('unidad_medida') === 'horas'     ? 'selected' : '' }}>⏱ Horas</option>
                     <option value="dias"      {{ old('unidad_medida') === 'dias'      ? 'selected' : '' }}>📅 Días</option>
@@ -200,7 +200,7 @@
                     Cancelar
                 </button>
                 <button type="submit"
-                    class="px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm transition shadow-sm flex items-center gap-2">
+                    class="px-6 py-2.5 rounded-xl bg-blue-500 hover:bg-blue-600 text-white font-bold text-sm transition shadow-sm flex items-center gap-2">
                     <i class="fas fa-floppy-disk"></i> Guardar Tipo
                 </button>
             </div>

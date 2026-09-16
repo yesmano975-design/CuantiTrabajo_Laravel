@@ -1,4 +1,4 @@
-@extends('layouts.sidebaradmin')
+﻿@extends('layouts.sidebaradmin')
 
 @section('tituloPagina', 'Gestión de Pagos')
 
@@ -26,11 +26,11 @@
                     $pagada   = $historial->where('periodo_inicio', $semana->lunes)->where('periodo_fin', $semana->sabado)->first();
                 @endphp
                 <a href="{{ route('pagos.index', ['lunes' => $semana->lunes, 'sabado' => $semana->sabado]) }}"
-                   class="block p-4 rounded-2xl border transition-all duration-200 {{ $esActiva ? 'border-emerald-500 bg-emerald-50/40 ring-2 ring-emerald-500/20 shadow-md' : 'border-slate-200 bg-white hover:border-emerald-300 hover:shadow-sm' }}">
+                   class="block p-4 rounded-2xl border transition-all duration-200 {{ $esActiva ? 'border-blue-500 bg-blue-50/40 ring-2 ring-blue-500/20 shadow-md' : 'border-slate-200 bg-white hover:border-blue-300 hover:shadow-sm' }}">
                     <div class="flex items-start justify-between gap-2">
                         <div>
                             <div class="font-display font-bold text-sm text-slate-800 flex items-center gap-1.5">
-                                <i class="fas fa-calendar-day text-emerald-600 text-xs"></i>
+                                <i class="fas fa-calendar-day text-blue-600 text-xs"></i>
                                 {{ \Carbon\Carbon::parse($semana->lunes)->format('d M') }} — {{ \Carbon\Carbon::parse($semana->sabado)->format('d M, Y') }}
                             </div>
                             <div class="text-xs text-slate-500 mt-1 flex items-center gap-2">
@@ -41,7 +41,7 @@
                         </div>
                         <div class="text-right">
                             @if($pagada)
-                                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold {{ $pagada->estado === 'pagado' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800' }}">
+                                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold {{ $pagada->estado === 'pagado' ? 'bg-blue-100 text-blue-800' : 'bg-amber-100 text-amber-800' }}">
                                     <i class="fas fa-circle-check text-[8px]"></i>
                                     {{ $pagada->estado === 'pagado' ? 'Pagado' : 'Generado' }}
                                 </span>
@@ -50,7 +50,7 @@
                                     Sin liquidar
                                 </span>
                             @endif
-                            <div class="font-display font-black text-sm text-emerald-700 font-mono mt-1">
+                            <div class="font-display font-black text-sm text-blue-700 font-mono mt-1">
                                 ${{ number_format($semana->total_semana ?? 0, 0, ',', '.') }}
                             </div>
                         </div>
@@ -72,9 +72,9 @@
         <div class="glass-card overflow-hidden">
             
             {{-- Header Liquidación --}}
-            <div class="p-6 border-b border-slate-100 bg-gradient-to-r from-slate-50/90 to-emerald-50/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div class="p-6 border-b border-slate-100 bg-gradient-to-r from-slate-50/90 to-blue-50/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-forest text-emerald-300 flex items-center justify-center text-lg shadow-sm">
+                    <div class="w-10 h-10 rounded-xl bg-forest text-blue-300 flex items-center justify-center text-lg shadow-sm">
                         <i class="fas fa-file-invoice-dollar"></i>
                     </div>
                     <div>
@@ -98,8 +98,8 @@
                     </button>
                 </form>
                 @elseif($yaGenerado)
-                <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 shadow-sm">
-                    <i class="fas fa-circle-check text-emerald-500"></i>
+                <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-blue-50 text-blue-700 border border-blue-200 shadow-sm">
+                    <i class="fas fa-circle-check text-blue-500"></i>
                     Liquidación ya generada
                 </span>
                 @endif
@@ -109,12 +109,12 @@
                 @if($resumenSemana->count() > 0)
 
                 {{-- Banner Total a Pagar --}}
-                <div class="mb-6 p-6 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-700 text-white text-center shadow-lg shadow-emerald-700/10">
-                    <span class="text-xs uppercase font-bold tracking-widest text-emerald-100">Total a Liquidar en la Semana</span>
+                <div class="mb-6 p-6 rounded-2xl bg-gradient-to-r from-blue-600 to-teal-700 text-white text-center shadow-lg shadow-blue-700/10">
+                    <span class="text-xs uppercase font-bold tracking-widest text-blue-100">Total a Liquidar en la Semana</span>
                     <div class="font-display font-black text-4xl sm:text-5xl font-mono tracking-tight mt-1 mb-1">
                         ${{ number_format($totalSemana, 0, ',', '.') }}
                     </div>
-                    <span class="text-xs text-emerald-200">{{ $resumenSemana->count() }} trabajadores con actividades aprobadas</span>
+                    <span class="text-xs text-blue-200">{{ $resumenSemana->count() }} trabajadores con actividades aprobadas</span>
                 </div>
 
                 {{-- Listado por Trabajador --}}
@@ -124,7 +124,7 @@
                         {{-- Worker Header --}}
                         <div class="p-4 bg-slate-50/80 border-b border-slate-200/80 flex items-center justify-between">
                             <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 font-bold text-xs flex items-center justify-center">
+                                <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-700 font-bold text-xs flex items-center justify-center">
                                     {{ substr($item['trabajador']->nombre, 0, 1) }}{{ substr($item['trabajador']->apellido ?? '', 0, 1) }}
                                 </div>
                                 <div>
@@ -137,7 +137,7 @@
                                 </div>
                             </div>
                             <div class="text-right">
-                                <span class="font-display font-black text-base text-emerald-700 font-mono">
+                                <span class="font-display font-black text-base text-blue-700 font-mono">
                                     ${{ number_format($item['total'], 0, ',', '.') }}
                                 </span>
                             </div>
@@ -170,7 +170,7 @@
                                         <td class="py-2 px-3 text-center font-bold">{{ $act->cantidad }}</td>
                                         <td class="py-2 px-3 text-center font-bold">{{ $act->numero_pasada }}</td>
                                         <td class="py-2 px-3 text-right font-mono">${{ number_format($vu, 0, ',', '.') }}</td>
-                                        <td class="py-2 px-3 text-right font-mono font-bold text-emerald-700">
+                                        <td class="py-2 px-3 text-right font-mono font-bold text-blue-700">
                                             ${{ number_format($sub, 0, ',', '.') }}
                                         </td>
                                     </tr>
@@ -184,7 +184,7 @@
 
                 @else
                 <div class="text-center text-slate-400 py-16">
-                    <i class="fas fa-circle-check text-4xl mb-3 block text-emerald-400"></i>
+                    <i class="fas fa-circle-check text-4xl mb-3 block text-blue-400"></i>
                     <h4 class="text-slate-700 font-bold text-base">No hay actividades confirmadas en esta semana</h4>
                     <p class="text-xs text-slate-400 mt-1">Aprueba actividades en el módulo de actividades para que aparezcan en el resumen.</p>
                 </div>
@@ -249,13 +249,13 @@
                                 {{ $pago->detalle_pagos_count }} ítems
                             </span>
                         </td>
-                        <td class="text-right font-mono font-black text-emerald-700 text-base">
+                        <td class="text-right font-mono font-black text-blue-700 text-base">
                             ${{ number_format($pago->total_pago, 0, ',', '.') }}
                         </td>
                         <td>
                             @if($pago->estado === 'pagado')
                                 <span class="badge-active">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Pagado
+                                    <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> Pagado
                                 </span>
                             @else
                                 <span class="badge-pending">
@@ -277,7 +277,7 @@
                                 <form action="{{ route('pagos.marcarPagado', $pago) }}" method="POST" class="inline">
                                     @csrf @method('PATCH')
                                     <button type="submit"
-                                        class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 hover:bg-emerald-100 hover:scale-105 transition-all flex items-center justify-center shadow-sm"
+                                        class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 hover:scale-105 transition-all flex items-center justify-center shadow-sm"
                                         title="Marcar como Pagado"
                                         onclick="return swConfirm(this, '¿Marcar el pago #{{ $pago->id }} como pagado?', 'question', 'Sí, marcar pagado')">
                                         <i class="fas fa-check text-xs"></i>
