@@ -46,16 +46,17 @@ Route::middleware(['auth', 'no-cache'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // ── Trabajadores ───────────────────────────────────────────────────
-    // CRUD completo de trabajadores del campo.
-    // La ruta toggle-estado alterna activo/inactivo sin entrar al formulario.
+    // CRUD completo. Los formularios son modales inline en trabajadores/index.
     Route::resource('trabajadores', TrabajadorController::class)
-        ->parameters(['trabajadores' => 'trabajador']);
+        ->parameters(['trabajadores' => 'trabajador'])
+        ->except(['create', 'edit', 'show']);
     Route::patch('trabajadores/{trabajador}/toggle-estado', [TrabajadorController::class, 'toggleEstado'])
         ->name('trabajadores.toggleEstado');
 
     // ── Lotes ──────────────────────────────────────────────────────────
-    // CRUD completo de lotes o parcelas de la finca.
-    Route::resource('lotes', LoteController::class);
+    // CRUD completo. Los formularios son modales inline en lotes/index.
+    Route::resource('lotes', LoteController::class)
+        ->except(['create', 'edit', 'show']);
 
     // ── Actividades Laborales ──────────────────────────────────────────
     // CRUD del registro diario de labores.
@@ -63,9 +64,12 @@ Route::middleware(['auth', 'no-cache'])->group(function () {
     // (pendiente → confirmado | rechazado), habilitando su inclusión en pagos.
     Route::resource('actividades', ActividadLaboralController::class)
         ->names('actividades')
-        ->parameters(['actividades' => 'actividad']);
+        ->parameters(['actividades' => 'actividad'])
+        ->except(['create', 'edit']);
     Route::patch('actividades/{actividad}/confirmar', [ActividadLaboralController::class, 'confirmar'])
         ->name('actividades.confirmar');
+    Route::get('actividades/avance-lote', [ActividadLaboralController::class, 'avanceLote'])
+        ->name('actividades.avanceLote');
 
     // ── Pagos / Liquidaciones ──────────────────────────────────────────
     // Gestión de liquidaciones semanales.
@@ -74,6 +78,9 @@ Route::middleware(['auth', 'no-cache'])->group(function () {
     
     Route::patch('pagos/{pago}/marcar-pagado', [PagoController::class, 'marcarPagado'])
         ->name('pagos.marcarPagado');
+
+    Route::patch('pagos/{pago}/agregar-actividades', [PagoController::class, 'agregarActividades'])
+        ->name('pagos.agregarActividades');
 
 });
 
@@ -84,24 +91,24 @@ Route::middleware(['auth', 'no-cache'])->group(function () {
 Route::middleware(['auth', 'role:administrador', 'no-cache'])->group(function () {
 
     // ── Usuarios del sistema ───────────────────────────────────────────
-    // Gestión de cuentas de acceso al panel (crear admins y secretarias).
-    // La ruta toggle-estado activa o desactiva una cuenta de usuario.
-    Route::resource('usuarios', UsuarioController::class);
+    // CRUD completo. Los formularios son modales inline en usuarios/index.
+    Route::resource('usuarios', UsuarioController::class)
+        ->except(['create', 'edit', 'show']);
     Route::patch('usuarios/{usuario}/toggle-estado', [UsuarioController::class, 'toggleEstado'])
         ->name('usuarios.toggleEstado');
 
     // ── Catálogo: Tipos de Actividad ───────────────────────────────────
-    // Define las categorías de labor (Fumigación, Poda, etc.) y su
-    // unidad de medida. Base para crear las tarifas.
+    // Los formularios son modales inline en tipo-actividades/index.
     Route::resource('tipo-actividades', TipoActividadController::class)
         ->names('tipo-actividades')
-        ->parameters(['tipo-actividades' => 'tipo_actividad']);
+        ->parameters(['tipo-actividades' => 'tipo_actividad'])
+        ->except(['create', 'edit', 'show']);
 
     // ── Catálogo: Tarifas (ValorActividad) ─────────────────────────────
-    // Define el valor económico por unidad de cada tipo de actividad
-    // para un rango de fechas. Permite historial de precios.
+    // Los formularios son modales inline en tarifas/index.
     Route::resource('tarifas', ValorActividadController::class)
-        ->names('tarifas');
+        ->names('tarifas')
+        ->except(['create', 'edit', 'show']);
 
 });
 

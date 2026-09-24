@@ -37,15 +37,6 @@ class LoteController extends Controller
     }
 
     /**
-     * create()
-     * Retorna la vista con el formulario vacío para registrar un nuevo lote.
-     */
-    public function create()
-    {
-        return view('admin.lotes.create');
-    }
-
-    /**
      * store()
      * Valida y guarda un nuevo lote.
      * - La referencia debe ser única en la tabla (identificador de campo).
@@ -69,15 +60,6 @@ class LoteController extends Controller
 
         return redirect()->route('lotes.index')
             ->with('success', 'Lote registrado correctamente.');
-    }
-
-    /**
-     * edit()
-     * Carga el formulario de edición con los datos actuales del lote.
-     */
-    public function edit(Lote $lote)
-    {
-        return view('admin.lotes.edit', compact('lote'));
     }
 
     /**

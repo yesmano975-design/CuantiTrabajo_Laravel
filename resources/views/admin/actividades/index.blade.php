@@ -158,13 +158,32 @@
 
                                 {{-- Confirmar --}}
                                 @if($act->estado_confirmacion !== 'confirmado')
+                                @php
+                                    // Calcular avance del lote para esta actividad
+                                    $loteHaTotal = (float)($act->lote->tamano_hectareas ?? 0);
+                                    $haRegistradas = \App\Models\ActividadLaboral::where('lote_id', $act->lote_id)
+                                        ->where('valor_actividad_id', $act->valor_actividad_id)
+                                        ->whereIn('estado_confirmacion', ['pendiente', 'confirmado'])
+                                        ->where('id', '!=', $act->id)
+                                        ->sum('cantidad');
+                                    $haConEsta     = $haRegistradas + $act->cantidad;
+                                    $haPendientes  = max(0, $loteHaTotal - $haConEsta);
+                                    $excedeLote    = $haConEsta > $loteHaTotal && $loteHaTotal > 0;
+                                    $loteNombreJs  = addslashes($act->lote->nombre ?? 'el lote');
+                                @endphp
                                 <form action="{{ route('actividades.confirmar', $act) }}" method="POST" class="inline">
                                     @csrf @method('PATCH')
                                     <input type="hidden" name="estado_confirmacion" value="confirmado">
                                     <button type="submit"
-                                        class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 transition-all flex items-center justify-center shadow-sm"
+                                        class="w-7 h-7 rounded-lg bg-brand-50 text-brand-600 hover:bg-brand-100 transition-all flex items-center justify-center shadow-sm"
                                         title="Aprobar y Confirmar"
-                                        onclick="return swConfirm(this, '¿Confirmar esta actividad para liquidación?', 'question', 'Sí, confirmar')">
+                                        data-lote="{{ $loteNombreJs }}"
+                                        data-ha-total="{{ $loteHaTotal }}"
+                                        data-ha-con-esta="{{ $haConEsta }}"
+                                        data-ha-pendientes="{{ $haPendientes }}"
+                                        data-excede="{{ $excedeLote ? '1' : '0' }}"
+                                        data-cantidad="{{ $act->cantidad }}"
+                                        onclick="return confirmarConAvance(event, this)">
                                         <i class="fas fa-check text-xs"></i>
                                     </button>
                                 </form>
@@ -301,7 +320,7 @@
                     <label class="block text-xs font-bold uppercase tracking-wider text-slate-600">Lote / Terreno <span class="text-rose-500">*</span></label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400"><i class="fas fa-map-location-dot"></i></div>
-                        <select name="lote_id" required
+                        <select name="lote_id" id="m_loteSelect" required
                                 class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-800 text-sm font-medium focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm">
                             <option value="">-- Seleccionar Lote --</option>
                             @foreach($lotes as $lote)
@@ -332,6 +351,32 @@
                         @endforeach
                     </select>
                 </div>
+            </div>
+
+            {{-- Avance del lote (aparece al seleccionar lote + tarifa) --}}
+            <div id="m_avanceLote" class="hidden p-4 rounded-xl border border-slate-200 bg-slate-50/60 space-y-2.5 transition-all">
+                <div class="flex items-center justify-between text-xs">
+                    <span class="font-bold text-slate-700 flex items-center gap-1.5">
+                        <i class="fas fa-chart-bar text-brand-600"></i>
+                        Avance en este lote
+                    </span>
+                    <span id="m_avancePorcentaje" class="font-mono font-bold text-brand-700">0%</span>
+                </div>
+                {{-- Barra de progreso --}}
+                <div class="h-2.5 bg-slate-200 rounded-full overflow-hidden">
+                    <div id="m_avanceBarra" class="h-full rounded-full transition-all duration-500 bg-brand-500" style="width:0%"></div>
+                </div>
+                <div class="flex items-center justify-between text-[11px] text-slate-500">
+                    <span>Registradas: <strong id="m_avanceRegistradas" class="text-slate-700">0</strong> ha</span>
+                    <span>Total lote: <strong id="m_avanceTotal" class="text-slate-700">0</strong> ha</span>
+                    <span>Quedan: <strong id="m_avanceRestantes" class="text-brand-700">0</strong> ha</span>
+                </div>
+            </div>
+
+            {{-- Advertencia de exceso --}}
+            <div id="m_avanceAlerta" class="hidden p-3 rounded-xl border border-harvest-400/60 bg-harvest-50/60 flex items-center gap-2 text-harvest-800 text-xs font-semibold">
+                <i class="fas fa-triangle-exclamation text-harvest-600 flex-shrink-0"></i>
+                <span id="m_avanceAlertaMsg">La cantidad ingresada supera las hectáreas disponibles del lote.</span>
             </div>
 
             {{-- Fecha, Cantidad, Pasadas --}}
@@ -471,6 +516,29 @@
                 </div>
             </div>
 
+            {{-- Avance del lote (modal editar) --}}
+            <div id="e_avanceLote" class="hidden p-4 rounded-xl border border-slate-200 bg-slate-50/60 space-y-2.5">
+                <div class="flex items-center justify-between text-xs">
+                    <span class="font-bold text-slate-700 flex items-center gap-1.5">
+                        <i class="fas fa-chart-bar text-amber-600"></i>
+                        Avance en este lote
+                    </span>
+                    <span id="e_avancePorcentaje" class="font-mono font-bold text-amber-700">0%</span>
+                </div>
+                <div class="h-2.5 bg-slate-200 rounded-full overflow-hidden">
+                    <div id="e_avanceBarra" class="h-full rounded-full transition-all duration-500 bg-amber-500" style="width:0%"></div>
+                </div>
+                <div class="flex items-center justify-between text-[11px] text-slate-500">
+                    <span>Registradas: <strong id="e_avanceRegistradas" class="text-slate-700">0</strong> ha</span>
+                    <span>Total lote: <strong id="e_avanceTotal" class="text-slate-700">0</strong> ha</span>
+                    <span>Quedan: <strong id="e_avanceRestantes" class="text-amber-700">0</strong> ha</span>
+                </div>
+            </div>
+            <div id="e_avanceAlerta" class="hidden p-3 rounded-xl border border-harvest-400/60 bg-harvest-50/60 flex items-center gap-2 text-harvest-800 text-xs font-semibold">
+                <i class="fas fa-triangle-exclamation text-harvest-600 flex-shrink-0"></i>
+                <span id="e_avanceAlertaMsg">La cantidad ingresada supera las hectáreas disponibles del lote.</span>
+            </div>
+
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
                 <div class="space-y-1.5">
                     <label class="block text-xs font-bold uppercase tracking-wider text-slate-600">Fecha <span class="text-rose-500">*</span></label>
@@ -533,6 +601,10 @@
 function openModal(id) {
     document.getElementById(id).classList.remove('hidden');
     document.body.style.overflow = 'hidden';
+    // Al abrir el modal de crear, disparar el avance si ya hay lote+tarifa seleccionados
+    if (id === 'modalCrear') {
+        setTimeout(() => actualizarAvanceLote('m', 0), 50);
+    }
 }
 function closeModal(id) {
     document.getElementById(id).classList.add('hidden');
@@ -564,6 +636,75 @@ document.getElementById('m_tarifaSelect').addEventListener('change', calcularSub
 document.getElementById('m_cantidadInput').addEventListener('input', calcularSubtotalModal);
 document.getElementById('m_pasadaInput').addEventListener('input', calcularSubtotalModal);
 calcularSubtotalModal();
+
+// ── Avance de lote en tiempo real ───────────────────────────────
+const AVANCE_URL = '{{ route("actividades.avanceLote") }}';
+let avanceDatos = null; // cache del último fetch
+
+function actualizarAvanceLote(prefijo, excluirId) {
+    const loteId  = document.getElementById(prefijo + '_loteSelect')?.value
+                 || document.getElementById(prefijo === 'm' ? 'm_loteSelect' : 'e_lote')?.value;
+    const tarifaId = document.getElementById(prefijo + '_tarifaSelect')?.value
+                  || document.getElementById(prefijo === 'm' ? 'm_tarifaSelect' : 'e_tarifa')?.value;
+
+    const widget  = document.getElementById(prefijo + '_avanceLote');
+    const alerta  = document.getElementById(prefijo + '_avanceAlerta');
+
+    if (!loteId || !tarifaId) {
+        widget?.classList.add('hidden');
+        alerta?.classList.add('hidden');
+        avanceDatos = null;
+        return;
+    }
+
+    let url = `${AVANCE_URL}?lote_id=${loteId}&valor_actividad_id=${tarifaId}`;
+    if (excluirId) url += `&excluir_id=${excluirId}`;
+
+    fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+        .then(r => r.json())
+        .then(data => {
+            if (data.error) { widget?.classList.add('hidden'); return; }
+
+            avanceDatos = data;
+            widget?.classList.remove('hidden');
+
+            document.getElementById(prefijo + '_avanceRegistradas').textContent = data.hectareas_registradas;
+            document.getElementById(prefijo + '_avanceTotal').textContent        = data.hectareas_totales;
+            document.getElementById(prefijo + '_avanceRestantes').textContent    = data.hectareas_restantes;
+            document.getElementById(prefijo + '_avancePorcentaje').textContent   = data.porcentaje + '%';
+
+            const barra = document.getElementById(prefijo + '_avanceBarra');
+            barra.style.width = data.porcentaje + '%';
+            barra.className = 'h-full rounded-full transition-all duration-500 ' +
+                (data.completado ? 'bg-rose-500' : data.porcentaje >= 75 ? 'bg-harvest-500' : 'bg-brand-500');
+
+            verificarExceso(prefijo);
+        })
+        .catch(() => widget?.classList.add('hidden'));
+}
+
+function verificarExceso(prefijo) {
+    if (!avanceDatos) return;
+
+    const cantInput = document.getElementById(prefijo === 'm' ? 'm_cantidadInput' : 'e_cantidad');
+    const alerta    = document.getElementById(prefijo + '_avanceAlerta');
+    const msg       = document.getElementById(prefijo + '_avanceAlertaMsg');
+    const cant      = parseFloat(cantInput?.value || 0);
+    const restantes = avanceDatos.hectareas_restantes;
+
+    if (cant > restantes) {
+        const exceso = (cant - restantes).toFixed(1);
+        msg.textContent = `Atención: estás registrando ${cant} ha pero solo quedan ${restantes} ha en ${avanceDatos.lote_nombre}. Exceso: ${exceso} ha.`;
+        alerta?.classList.remove('hidden');
+    } else {
+        alerta?.classList.add('hidden');
+    }
+}
+
+// Listeners para el modal de CREAR
+document.getElementById('m_loteSelect').addEventListener('change',   () => actualizarAvanceLote('m', 0));
+document.getElementById('m_tarifaSelect').addEventListener('change', () => actualizarAvanceLote('m', 0));
+document.getElementById('m_cantidadInput').addEventListener('input', () => verificarExceso('m'));
 
 // ── DataTable ───────────────────────────────────────────────────
 $(document).ready(function () {
@@ -614,12 +755,67 @@ function openEditActividadModal(id, trabajador_id, lote_id, tarifa_id, fecha, ca
     document.getElementById('e_pasada').value      = pasada;
     document.getElementById('e_observacion').value = observacion;
     calcularSubtotalEditar();
+    // Cargar avance del lote al abrir el modal de editar (excluyendo la actividad actual)
+    actualizarAvanceLote('e', id);
     openModal('modalEditar');
 }
 
-document.getElementById('e_tarifa').addEventListener('change', calcularSubtotalEditar);
-document.getElementById('e_cantidad').addEventListener('input', calcularSubtotalEditar);
+document.getElementById('e_tarifa').addEventListener('change', () => { calcularSubtotalEditar(); actualizarAvanceLote('e', 0); });
+document.getElementById('e_lote').addEventListener('change',   () => actualizarAvanceLote('e', 0));
+document.getElementById('e_cantidad').addEventListener('input', () => { calcularSubtotalEditar(); verificarExceso('e'); });
 document.getElementById('e_pasada').addEventListener('input', calcularSubtotalEditar);
+
+// ── Confirmar actividad con advertencia de avance de lote ───────
+function confirmarConAvance(e, btn) {
+    e.preventDefault();
+
+    const loteNombre  = btn.dataset.lote;
+    const haTotal     = parseFloat(btn.dataset.haTotal     || 0);
+    const haConEsta   = parseFloat(btn.dataset.haConEsta   || 0);
+    const haPendientes= parseFloat(btn.dataset.haPendientes|| 0);
+    const excede      = btn.dataset.excede === '1';
+    const cantidad    = parseFloat(btn.dataset.cantidad    || 0);
+
+    let titulo, texto, icono, confirmColor;
+
+    if (haTotal > 0 && excede) {
+        titulo       = `¿Confirmar actividad en ${loteNombre}?`;
+        texto        = `Esta actividad registra ${cantidad} ha, pero el lote solo tiene ${haTotal} ha en total. Con esto llegarías a ${haConEsta} ha — ${(haConEsta - haTotal).toFixed(1)} ha por encima del lote. ¿Deseas confirmarla de todas formas?`;
+        icono        = 'warning';
+        confirmColor = '#d9980f';
+    } else if (haTotal > 0 && haPendientes > 0) {
+        titulo       = `¿Confirmar actividad en ${loteNombre}?`;
+        texto        = `Llevarás ${haConEsta} ha confirmadas de ${haTotal} ha del lote. Quedarán ${haPendientes} ha pendientes por registrar. ¿Deseas confirmar de todas formas?`;
+        icono        = 'question';
+        confirmColor = '#2d5a27';
+    } else {
+        titulo       = '¿Confirmar esta actividad para liquidación?';
+        texto        = '';
+        icono        = 'question';
+        confirmColor = '#2d5a27';
+    }
+
+    Swal.fire({
+        title: titulo,
+        text:  texto || undefined,
+        icon:  icono,
+        showCancelButton:   true,
+        confirmButtonText:  'Sí, confirmar',
+        cancelButtonText:   'Cancelar',
+        confirmButtonColor: confirmColor,
+        cancelButtonColor:  '#64748b',
+        reverseButtons: true,
+        customClass: {
+            popup:         'rounded-2xl shadow-2xl',
+            confirmButton: 'rounded-xl font-bold text-sm px-5 py-2.5',
+            cancelButton:  'rounded-xl font-bold text-sm px-5 py-2.5',
+        }
+    }).then(result => {
+        if (result.isConfirmed) btn.closest('form').submit();
+    });
+
+    return false;
+}
 
 // ── Reabrir modal si hay errores de validación ──────────────────
 @if($errors->any() && old('_method') === null)

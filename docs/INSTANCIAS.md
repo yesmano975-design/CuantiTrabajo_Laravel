@@ -277,4 +277,73 @@ $instancia->save()        → guarda los cambios hechos con ->propiedad = valor
 
 ---
 
+---
+
+## Códigos de error HTTP — Qué significan y dónde buscar
+
+Cuando algo falla en el navegador, el código de error te dice en qué capa está el problema.
+
+---
+
+### Errores 4xx — El problema está en la petición o los datos
+
+| Código | Nombre | Qué pasó | Dónde buscar |
+|---|---|---|---|
+| **400** | Bad Request | La petición tiene datos mal formados | Validación en el controlador (`$request->validate`) |
+| **401** | Unauthorized | No estás autenticado (no has iniciado sesión) | Middleware `auth`, rutas protegidas en `web.php` |
+| **403** | Forbidden | Estás autenticado pero no tienes permiso | Middleware `CheckRol`, lógica de autorización |
+| **404** | Not Found | La ruta o el recurso no existe | `routes/web.php`, nombre de la ruta, `findOrFail($id)` |
+| **405** | Method Not Allowed | Usaste GET donde se espera POST (o viceversa) | El método HTTP en el `<form>` o en la ruta (`Route::post`) |
+| **419** | Page Expired | Falta el token CSRF en el formulario | Falta `@csrf` dentro del `<form>` en la vista Blade |
+| **422** | Unprocessable Entity | Validación falló (datos incorrectos) | Reglas en `$request->validate([...])` del controlador |
+| **429** | Too Many Requests | Demasiadas peticiones en poco tiempo | Middleware de rate limiting |
+
+---
+
+### Errores 5xx — El problema está en el servidor (tu código PHP)
+
+| Código | Nombre | Qué pasó | Dónde buscar |
+|---|---|---|---|
+| **500** | Internal Server Error | Error genérico de PHP / Laravel | Revisa `storage/logs/laravel.log`, activa `APP_DEBUG=true` en `.env` |
+| **502** | Bad Gateway | El servidor web no puede conectar con PHP | Problema de configuración de Laragon / Apache |
+| **503** | Service Unavailable | App en modo mantenimiento o caída | `php artisan down` fue ejecutado, usa `php artisan up` |
+| **504** | Gateway Timeout | La petición tardó demasiado | Consulta muy lenta a la BD, bucle infinito en el código |
+
+> **El más común en desarrollo es el 500.** Siempre revisa `storage/logs/laravel.log` para ver el error real con archivo y línea exacta.
+
+---
+
+### Errores de Laravel específicos (no son códigos HTTP pero los verás seguido)
+
+| Mensaje | Qué pasó | Dónde buscar |
+|---|---|---|
+| `View [x] not found` | La vista no existe con ese nombre | `resources/views/` — revisa el nombre y la carpeta |
+| `Route [x] not defined` | La ruta con ese nombre no existe | `routes/web.php` — revisa el `->name('...')` |
+| `Class x not found` | El controlador no existe o tiene mal namespace | `app/Http/Controllers/` — nombre del archivo y clase |
+| `Method x not found` | El método del controlador fue renombrado o borrado | El controlador correspondiente |
+| `Column not found` | Un campo no existe en la tabla | Migración, `$fillable` del modelo, nombre del campo en la vista |
+| `Attempt to read property on null` | Accediste a `->propiedad` sobre un `null` | El controlador donde se pasa la variable a la vista |
+| `SQLSTATE` | Error de base de datos | Consulta Eloquent, nombre de tabla/columna en el modelo |
+
+---
+
+### Flujo para diagnosticar cualquier error
+
+```
+1. ¿Qué código o mensaje aparece en pantalla?
+        ↓
+2. ¿Es 4xx o 5xx?
+   4xx → problema en rutas, permisos, formularios, validación
+   5xx → problema en código PHP, revisa el log
+        ↓
+3. Abrir storage/logs/laravel.log → busca la última línea [ERROR]
+   Te dice: archivo exacto + número de línea
+        ↓
+4. Ir a ese archivo y línea a corregir
+        ↓
+5. Si no encuentras nada: php artisan optimize:clear
+```
+
+---
+
 *Documento generado para repaso — Proyecto CuantiTrabajo Laravel*

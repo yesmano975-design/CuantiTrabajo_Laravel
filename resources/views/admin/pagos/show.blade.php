@@ -19,7 +19,7 @@
 
     {{-- Acciones y Navegación --}}
     <div class="no-print flex items-center justify-between">
-        <a href="{{ route('pagos.index') }}" class="text-xs font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1.5 transition-colors">
+        <a href="{{ route('pagos.index') }}" class="text-xs font-bold text-brand-600 hover:text-brand-700 flex items-center gap-1.5 transition-colors">
             <i class="fas fa-arrow-left"></i> Volver al módulo de pagos
         </a>
         <div class="flex items-center gap-2">
@@ -37,15 +37,15 @@
         <div class="p-8 border-b border-slate-100 bg-gradient-to-r from-forest to-slate-900 text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
             <div class="space-y-1">
                 <div class="flex items-center gap-2">
-                    <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-blue-400/20 text-blue-300 border border-blue-400/30 uppercase tracking-wider">
+                    <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-brand-400/20 text-brand-300 border border-brand-400/30 uppercase tracking-wider">
                         Comprobante de Liquidación
                     </span>
                     @if($pago->estado === 'pagado')
-                        <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-blue-500 text-white">
+                        <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-brand-500 text-white">
                             <i class="fas fa-check-circle mr-1"></i> PAGADO
                         </span>
                     @else
-                        <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-500 text-slate-950">
+                        <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-harvest-500 text-slate-950">
                             <i class="fas fa-clock mr-1"></i> GENERADO
                         </span>
                     @endif
@@ -56,7 +56,7 @@
 
             <div class="text-left sm:text-right bg-white/10 backdrop-blur-md px-5 py-3 rounded-2xl border border-white/10">
                 <span class="text-[11px] uppercase font-bold text-slate-300 tracking-wider">Total Liquidado</span>
-                <div class="font-display font-black text-2xl sm:text-3xl text-blue-300 font-mono">
+                <div class="font-display font-black text-2xl sm:text-3xl text-brand-300 font-mono">
                     ${{ number_format($pago->total_pago, 0, ',', '.') }}
                 </div>
             </div>
@@ -67,14 +67,14 @@
             <div>
                 <span class="text-xs font-bold uppercase tracking-wider text-slate-400 block mb-1">Período de Labor</span>
                 <div class="font-bold text-slate-800 text-sm flex items-center gap-2">
-                    <i class="fas fa-calendar-range text-blue-600"></i>
+                    <i class="fas fa-calendar-range text-brand-600"></i>
                     {{ $pago->periodo_inicio->format('d/m/Y') }} — {{ $pago->periodo_fin->format('d/m/Y') }}
                 </div>
             </div>
             <div>
                 <span class="text-xs font-bold uppercase tracking-wider text-slate-400 block mb-1">Total Actividades</span>
                 <div class="font-bold text-slate-800 text-sm flex items-center gap-2">
-                    <i class="fas fa-clipboard-check text-blue-600"></i>
+                    <i class="fas fa-clipboard-check text-brand-600"></i>
                     {{ $pago->detallePagos->count() }} labores registradas
                 </div>
             </div>
@@ -90,7 +90,7 @@
         {{-- Worker Breakdown Blocks --}}
         <div class="p-6 sm:p-8 space-y-6">
             <h3 class="font-display font-bold text-base text-slate-800 flex items-center gap-2">
-                <i class="fas fa-layer-group text-blue-600"></i> Desglose Detallado por Operario
+                <i class="fas fa-layer-group text-brand-600"></i> Desglose Detallado por Operario
             </h3>
 
             @foreach($porTrabajador as $item)
@@ -98,7 +98,7 @@
                 {{-- Worker Subheader --}}
                 <div class="p-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
                     <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-700 font-bold text-xs flex items-center justify-center">
+                        <div class="w-8 h-8 rounded-full bg-brand-100 text-brand-700 font-bold text-xs flex items-center justify-center">
                             {{ substr($item['trabajador']->nombre, 0, 1) }}{{ substr($item['trabajador']->apellido ?? '', 0, 1) }}
                         </div>
                         <div>
@@ -112,7 +112,7 @@
                     </div>
                     <div class="text-right">
                         <span class="text-xs text-slate-400 block">Subtotal:</span>
-                        <span class="font-display font-black text-base text-blue-700 font-mono">
+                        <span class="font-display font-black text-base text-brand-700 font-mono">
                             ${{ number_format($item['subtotal'], 0, ',', '.') }}
                         </span>
                     </div>
@@ -142,7 +142,7 @@
                                 <td class="py-2.5 px-4 text-center font-bold">{{ $detalle->cantidad }}</td>
                                 <td class="py-2.5 px-4 text-center font-bold">{{ $act->numero_pasada }}</td>
                                 <td class="py-2.5 px-4 text-right font-mono">${{ number_format($detalle->valor_unitario, 0, ',', '.') }}</td>
-                                <td class="py-2.5 px-4 text-right font-mono font-bold text-blue-700">
+                                <td class="py-2.5 px-4 text-right font-mono font-bold text-brand-700">
                                     ${{ number_format($detalle->subtotal, 0, ',', '.') }}
                                 </td>
                             </tr>
@@ -151,7 +151,7 @@
                         <tfoot class="bg-slate-50 font-bold border-t border-slate-200">
                             <tr>
                                 <td colspan="6" class="py-2.5 px-4 text-right text-slate-600 uppercase text-[11px]">Total Trabajador:</td>
-                                <td class="py-2.5 px-4 text-right text-blue-700 font-mono text-sm">
+                                <td class="py-2.5 px-4 text-right text-brand-700 font-mono text-sm">
                                     ${{ number_format($item['subtotal'], 0, ',', '.') }}
                                 </td>
                             </tr>
@@ -168,7 +168,7 @@
                     <p class="text-xs text-slate-400 mt-0.5">Liquidación oficial generada para soporte contable y de tesorería</p>
                 </div>
                 <div class="text-right">
-                    <span class="text-xs uppercase font-bold tracking-wider text-blue-400 block">Total Liquidado Definitivo</span>
+                    <span class="text-xs uppercase font-bold tracking-wider text-brand-400 block">Total Liquidado Definitivo</span>
                     <span class="font-display font-black text-3xl text-white font-mono tracking-tight">
                         ${{ number_format($pago->total_pago, 0, ',', '.') }}
                     </span>

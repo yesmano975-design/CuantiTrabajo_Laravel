@@ -43,16 +43,6 @@ class UsuarioController extends Controller
     }
 
     /**
-     * create()
-     * Retorna el formulario de creación con la lista de roles disponibles.
-     */
-    public function create()
-    {
-        $roles = Rol::orderBy('nombre')->get();
-        return view('admin.usuarios.create', compact('roles'));
-    }
-
-    /**
      * store()
      * Valida y crea un nuevo usuario.
      * - El email debe ser único en la tabla de usuarios.
@@ -84,16 +74,6 @@ class UsuarioController extends Controller
 
         return redirect()->route('usuarios.index')
             ->with('success', 'Usuario creado correctamente.');
-    }
-
-    /**
-     * edit()
-     * Carga el formulario de edición con los datos del usuario y los roles disponibles.
-     */
-    public function edit(User $usuario)
-    {
-        $roles = Rol::orderBy('nombre')->get();
-        return view('admin.usuarios.edit', compact('usuario', 'roles'));
     }
 
     /**

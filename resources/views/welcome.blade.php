@@ -11,32 +11,41 @@
                 extend: {
                     colors: {
                         brand: {
-                            50:  '#eff6ff',
-                            100: '#dbeafe',
-                            200: '#bfdbfe',
-                            300: '#93c5fd',
-                            400: '#60a5fa',
-                            500: '#3b82f6',
-                            600: '#2563eb',
-                            700: '#1d4ed8',
-                            800: '#1e40af',
-                            900: '#1e3a8a',
-                            950: '#172554',
+                            50:  '#f2f8f0',
+                            100: '#dff0d8',
+                            200: '#b8dea8',
+                            300: '#88c474',
+                            400: '#5fa84e',
+                            500: '#4a8c3f',
+                            600: '#3a7031',
+                            700: '#2d5a27',
+                            800: '#22451e',
+                            900: '#183316',
+                            950: '#0d1f0c',
                         },
                         forest: {
-                            DEFAULT: '#1e3a8a',
-                            light:   '#2563eb',
-                            dark:    '#0f172a',
+                            DEFAULT: '#1e3d20',
+                            light:   '#2d6a31',
+                            dark:    '#122514',
                         },
-                        gold: '#F59E0B',
+                        harvest: {
+                            50:  '#fefbec',
+                            100: '#fdf3c4',
+                            200: '#fbe58a',
+                            300: '#f8d04e',
+                            400: '#f5bc28',
+                            500: '#d9980f',
+                            600: '#b87a09',
+                        },
+                        gold: '#d9980f',
                     },
                     fontFamily: {
                         sans:    ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
                         display: ['Outfit', 'sans-serif'],
                     },
                     boxShadow: {
-                        'glow': '0 0 40px -10px rgba(59, 130, 246, 0.45)',
-                        'gold-glow': '0 0 35px -5px rgba(245, 158, 11, 0.3)',
+                        'glow':      '0 0 40px -10px rgba(74, 140, 63, 0.50)',
+                        'gold-glow': '0 0 35px -5px rgba(217, 152, 15, 0.35)',
                     }
                 }
             }
@@ -51,8 +60,8 @@
         h1,h2,h3,h4,h5,h6,.font-display { font-family: 'Outfit', sans-serif; }
         
         .hero-pattern {
-            background-color: #0f172a;
-            background-image: radial-gradient(rgba(59, 130, 246, 0.15) 1px, transparent 1px), radial-gradient(rgba(59, 130, 246, 0.08) 1px, #0f172a 1px);
+            background-color: #0d1a0e;
+            background-image: radial-gradient(rgba(74, 140, 63, 0.15) 1px, transparent 1px), radial-gradient(rgba(74, 140, 63, 0.08) 1px, #0d1a0e 1px);
             background-size: 40px 40px;
             background-position: 0 0, 20px 20px;
         }
@@ -72,7 +81,7 @@
         }
     </style>
 </head>
-<body class="bg-slate-900 text-slate-100 antialiased overflow-x-hidden">
+<body class="bg-[#0d1a0e] text-slate-100 antialiased overflow-x-hidden">
 
     {{-- TOP NAVIGATION --}}
     <nav class="fixed top-0 inset-x-0 z-50 bg-forest-dark/85 backdrop-blur-lg border-b border-white/10 transition-all duration-300">
@@ -87,7 +96,7 @@
                     <span class="font-display font-black text-2xl tracking-tight text-white group-hover:text-brand-300 transition-colors">
                         Cuanti<span class="text-brand-400">Trabajo</span>
                     </span>
-                    <span class="block text-[10px] font-bold text-blue-300/80 uppercase tracking-widest -mt-1">
+                    <span class="block text-[10px] font-bold text-brand-300/80 uppercase tracking-widest -mt-1">
                         Agritech Intelligence
                     </span>
                 </div>
@@ -154,8 +163,8 @@
         </div>
 
         {{-- Background Glow Blobs --}}
-        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-blue-500/20 blur-[140px] pointer-events-none rounded-full z-10"></div>
-        <div class="absolute top-1/3 right-10 w-[400px] h-[400px] bg-amber-500/15 blur-[120px] pointer-events-none rounded-full z-10"></div>
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-brand-600/20 blur-[140px] pointer-events-none rounded-full z-10"></div>
+        <div class="absolute top-1/3 right-10 w-[400px] h-[400px] bg-harvest-500/15 blur-[120px] pointer-events-none rounded-full z-10"></div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 w-full">
             <div class="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
@@ -164,7 +173,7 @@
                 <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
                     
                     {{-- Badge --}}
-                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel border border-brand-400/30 text-blue-300 text-xs font-bold uppercase tracking-wider shadow-sm backdrop-blur-md">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel border border-brand-400/30 text-brand-300 text-xs font-bold uppercase tracking-wider shadow-sm backdrop-blur-md">
                         <span class="w-2 h-2 rounded-full bg-brand-400 animate-ping"></span>
                         <i class="fas fa-seedling text-brand-400"></i>
                         Software Agrícola de Precisión & Liquidación
@@ -173,7 +182,7 @@
                     {{-- Headline --}}
                     <h1 class="font-display font-black text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.08] text-white drop-shadow-[0_4px_14px_rgba(0,0,0,0.85)]">
                         Control Total de tus <br>
-                        <span class="bg-gradient-to-r from-brand-300 via-brand-400 to-blue-200 bg-clip-text text-transparent">
+                        <span class="bg-gradient-to-r from-brand-300 via-brand-400 to-brand-200 bg-clip-text text-transparent">
                             Jornales, Lotes y Pagos
                         </span>
                     </h1>
@@ -230,7 +239,7 @@
                             <div class="absolute inset-0 bg-gradient-to-t from-forest-dark/90 via-forest-dark/30 to-transparent"></div>
                             
                             <div class="absolute bottom-4 left-4 right-4">
-                                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/30 backdrop-blur-md text-brand-300 text-xs font-bold border border-blue-400/30 mb-1.5">
+                                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/30 backdrop-blur-md text-brand-300 text-xs font-bold border border-brand-400/30 mb-1.5">
                                     <i class="fas fa-check-circle"></i> Sistema Activo
                                 </div>
                                 <h3 class="font-display font-bold text-lg text-white">Monitoreo y Liquidación CuantiTrabajo</h3>
@@ -244,7 +253,7 @@
                                 <div class="flex items-center gap-2 text-xs text-slate-400 mb-1">
                                     <i class="fas fa-calculator text-brand-400"></i> Liquidación Semanal
                                 </div>
-                                <div class="font-display font-bold text-lg text-blue-300">Cálculo Automático</div>
+                                <div class="font-display font-bold text-lg text-brand-300">Cálculo Automático</div>
                                 <div class="text-[11px] text-slate-400">Tarifa × Pasadas × Cantidad</div>
                             </div>
                             <div class="p-3.5 rounded-xl bg-white/5 border border-white/10">
@@ -259,18 +268,18 @@
                     </div>
 
                     {{-- Floating Pill 1 --}}
-                    <div class="absolute -top-6 -right-4 floating hidden sm:flex items-center gap-3 p-3.5 rounded-2xl glass-panel border border-brand-400/40 shadow-glow bg-slate-900/90 backdrop-blur-xl">
+                    <div class="absolute -top-6 -right-4 floating hidden sm:flex items-center gap-3 p-3.5 rounded-2xl glass-panel border border-brand-400/40 shadow-glow bg-[#0d1a0e]/90 backdrop-blur-xl">
                         <div class="w-10 h-10 rounded-xl bg-brand-500/20 text-brand-400 flex items-center justify-center font-bold text-lg">
                             <i class="fas fa-badge-check"></i>
                         </div>
                         <div>
                             <div class="text-xs font-bold text-white">Validación al Instante</div>
-                            <div class="text-[10px] text-blue-300">Actividades Confirmadas</div>
+                            <div class="text-[10px] text-brand-300">Actividades Confirmadas</div>
                         </div>
                     </div>
 
                     {{-- Floating Pill 2 --}}
-                    <div class="absolute -bottom-6 -left-4 floating hidden sm:flex items-center gap-3 p-3.5 rounded-2xl glass-panel border border-amber-400/40 shadow-gold-glow bg-slate-900/90 backdrop-blur-xl" style="animation-delay: -3s;">
+                    <div class="absolute -bottom-6 -left-4 floating hidden sm:flex items-center gap-3 p-3.5 rounded-2xl glass-panel border border-harvest-400/40 shadow-gold-glow bg-[#0d1a0e]/90 backdrop-blur-xl" style="animation-delay: -3s;">
                         <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-lg">
                             <i class="fas fa-file-invoice-dollar"></i>
                         </div>
@@ -287,7 +296,7 @@
     </section>
 
     {{-- SHOWCASE CAROUSEL / FIELD MONITORING SECTION --}}
-    <section id="galeria" class="py-20 bg-slate-950 border-t border-white/10">
+    <section id="galeria" class="py-20 bg-[#0d1a0e] border-t border-white/10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-14">
                 <span class="text-brand-400 font-bold text-xs uppercase tracking-widest">Tecnología de Punta</span>                <h2 class="font-display font-black text-3xl sm:text-4xl text-white mt-2">
@@ -367,7 +376,7 @@
     </section>
 
     {{-- CORE MODULES GRID --}}
-    <section id="modulos" class="py-24 bg-[#0d1b36] relative overflow-hidden">
+    <section id="modulos" class="py-24 bg-[#122514] relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             
             <div class="text-center max-w-3xl mx-auto mb-16">
@@ -482,7 +491,7 @@
     </section>
 
     {{-- HOW IT WORKS STEP SECTION --}}
-    <section id="soluciones" class="py-24 bg-slate-900 border-t border-white/10">
+    <section id="soluciones" class="py-24 bg-[#0d1a0e] border-t border-white/10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16">
                 <span class="text-brand-400 font-bold text-xs uppercase tracking-widest">Flujo Simplificado</span>
@@ -520,7 +529,7 @@
 
                 {{-- Step 3 --}}
                 <div class="p-8 rounded-3xl bg-slate-800/60 border border-white/10 text-center relative">
-                    <div class="w-12 h-12 rounded-2xl bg-blue-500/20 text-blue-300 font-display font-black text-xl flex items-center justify-center mx-auto mb-6 border border-blue-400/30">
+                    <div class="w-12 h-12 rounded-2xl bg-brand-500/20 text-brand-300 font-display font-black text-xl flex items-center justify-center mx-auto mb-6 border border-brand-400/30">
                         3
                     </div>
                     <h3 class="font-display font-bold text-xl text-white mb-3">Liquida e Imprime</h3>
@@ -545,7 +554,7 @@
                     <h2 class="font-display font-black text-3xl sm:text-4xl text-white">
                         ¿Listo para llevar tu finca al siguiente nivel?
                     </h2>
-                    <p class="text-blue-100/80 text-sm sm:text-base">
+                    <p class="text-brand-100/80 text-sm sm:text-base">
                         Ingresa a tu cuenta y comienza a registrar actividades, controlar lotes y gestionar la nómina de tus trabajadores hoy mismo.
                     </p>
                 </div>
@@ -553,7 +562,7 @@
                 <div class="relative z-10 flex-shrink-0">
                     <a href="{{ route('login') }}"
                        class="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-white text-slate-900 font-black text-base hover:bg-blue-50 hover:shadow-glow hover:scale-105 transition-all shadow-xl">
-                        <i class="fas fa-arrow-right-to-bracket text-blue-600"></i>
+                        <i class="fas fa-arrow-right-to-bracket text-brand-600"></i>
                         Ingresar a CuantiTrabajo
                     </a>
                 </div>

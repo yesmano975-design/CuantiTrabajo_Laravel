@@ -64,6 +64,11 @@ class PagoController extends Controller
 
         // ── Historial de liquidaciones ya procesadas ─────────────────────────
         $historial = Pago::withCount('detallePagos')
+            ->with([
+                'detallePagos.actividadLaboral.trabajador.cargo',
+                'detallePagos.actividadLaboral.lote',
+                'detallePagos.actividadLaboral.valorActividad.tipoActividad',
+            ])
             ->orderBy('fecha_generacion', 'desc')
             ->orderBy('id', 'desc')
             ->get();
@@ -72,45 +77,130 @@ class PagoController extends Controller
         $lunesActual  = request('lunes',  $semanas->first()?->lunes);
         $sabadoActual = request('sabado', $semanas->first()?->sabado);
 
-        $resumenSemana = [];
-        $totalSemana   = 0;
-        $yaGenerado    = false;
+        $resumenSemana         = collect();
+        $totalSemana           = 0;
+        $yaGenerado            = false;
+        $pagoExistente         = null;
+        $actividadesPendientes = collect();
 
         if ($lunesActual && $sabadoActual) {
-            // Resumen agrupado por trabajador para la semana seleccionada
-            $resumenSemana = ActividadLaboral::with(['trabajador.cargo', 'valorActividad'])
-                ->whereBetween('fecha', [$lunesActual, $sabadoActual])
-                ->where('estado_confirmacion', 'confirmado')
-                ->get()
-                ->groupBy('trabajador_id')
-                ->map(function ($actividades) {
+
+            // Comprobar si ya existe un pago para este rango de fechas
+            $pagoExistente = Pago::with([
+                    'detallePagos.actividadLaboral.trabajador.cargo',
+                    'detallePagos.actividadLaboral.lote',
+                    'detallePagos.actividadLaboral.valorActividad.tipoActividad',
+                ])
+                ->where('periodo_inicio', $lunesActual)
+                ->where('periodo_fin', $sabadoActual)
+                ->first();
+
+            $yaGenerado = (bool) $pagoExistente;
+
+            if ($yaGenerado) {
+                // ── IDs ya incluidos en el pago ──
+                $idsYaIncluidos = $pagoExistente->detallePagos->pluck('actividad_laboral_id');
+
+                // ── Actividades del pago existente agrupadas por trabajador ──
+                $resumenDelPago = $pagoExistente->detallePagos
+                    ->groupBy(fn($d) => $d->actividadLaboral->trabajador_id)
+                    ->map(function ($detalles) {
+                        $trabajador = $detalles->first()->actividadLaboral->trabajador;
+                        return [
+                            'trabajador'      => $trabajador,
+                            'actividades'     => $detalles->map->actividadLaboral,
+                            'num_actividades' => $detalles->count(),
+                            'total'           => $detalles->sum('subtotal'),
+                            'liquidado'       => true,
+                        ];
+                    });
+
+                // ── Actividades confirmadas NO incluidas en el pago ──
+                $actsPendientes = ActividadLaboral::with(['trabajador.cargo', 'valorActividad.tipoActividad', 'lote'])
+                    ->whereBetween('fecha', [$lunesActual, $sabadoActual])
+                    ->where('estado_confirmacion', 'confirmado')
+                    ->whereNotIn('id', $idsYaIncluidos)
+                    ->get()
+                    ->groupBy('trabajador_id');
+
+                // ── Guardar pendientes para la vista (sección de agregar) ──
+                $actividadesPendientes = $actsPendientes
+                    ->map(function ($actividades) {
+                        $trabajador = $actividades->first()->trabajador;
+                        $total = $actividades->sum(fn($a) =>
+                            $a->cantidad * ($a->valorActividad->valor_unitario ?? 0) * $a->numero_pasada
+                        );
+                        return [
+                            'trabajador'  => $trabajador,
+                            'actividades' => $actividades,
+                            'total'       => $total,
+                        ];
+                    })
+                    ->values();
+
+                // ── Fusionar: trabajadores del pago + trabajadores pendientes ──
+                foreach ($actsPendientes as $tId => $actividades) {
                     $trabajador = $actividades->first()->trabajador;
-                    // Subtotal del trabajador: suma de (cantidad × valor_unitario × numero_pasada)
                     $total = $actividades->sum(fn($a) =>
                         $a->cantidad * ($a->valorActividad->valor_unitario ?? 0) * $a->numero_pasada
                     );
-                    return [
-                        'trabajador'      => $trabajador,
-                        'actividades'     => $actividades,
-                        'num_actividades' => $actividades->count(),
-                        'total'           => $total,
-                    ];
-                })
-                ->values();
+                    if ($resumenDelPago->has($tId)) {
+                        // Ya existe en el pago: agregar actividades pendientes al ítem
+                        $existing = $resumenDelPago[$tId];
+                        $existing['actividades_pendientes'] = $actividades;
+                        $existing['total_pendiente'] = $total;
+                        $resumenDelPago[$tId] = $existing;
+                    } else {
+                        // Trabajador nuevo sin ninguna actividad liquidada aún
+                        $resumenDelPago[$tId] = [
+                            'trabajador'             => $trabajador,
+                            'actividades'            => collect(),
+                            'num_actividades'        => 0,
+                            'total'                  => 0,
+                            'liquidado'              => false,
+                            'actividades_pendientes' => $actividades,
+                            'total_pendiente'        => $total,
+                        ];
+                    }
+                }
 
-            $totalSemana = $resumenSemana->sum('total');
+                $resumenSemana = $resumenDelPago->values();
+                $totalSemana   = $pagoExistente->total_pago;
 
-            // Comprobar si ya existe un pago para este rango de fechas
-            $yaGenerado = Pago::where('periodo_inicio', $lunesActual)
-                ->where('periodo_fin', $sabadoActual)
-                ->exists();
+            } else {
+                $actividadesPendientes = collect();
+                // ── Semana pendiente: calcular desde actividades confirmadas ──
+                $resumenSemana = ActividadLaboral::with(['trabajador.cargo', 'valorActividad.tipoActividad', 'lote'])
+                    ->whereBetween('fecha', [$lunesActual, $sabadoActual])
+                    ->where('estado_confirmacion', 'confirmado')
+                    ->get()
+                    ->groupBy('trabajador_id')
+                    ->map(function ($actividades) {
+                        $trabajador = $actividades->first()->trabajador;
+                        $total = $actividades->sum(fn($a) =>
+                            $a->cantidad * ($a->valorActividad->valor_unitario ?? 0) * $a->numero_pasada
+                        );
+                        return [
+                            'trabajador'             => $trabajador,
+                            'actividades'            => $actividades,
+                            'num_actividades'        => $actividades->count(),
+                            'total'                  => $total,
+                            'liquidado'              => false,
+                            'actividades_pendientes' => collect(),
+                            'total_pendiente'        => 0,
+                        ];
+                    })
+                    ->values();
+
+                $totalSemana = $resumenSemana->sum('total');
+            }
         }
 
         return view('admin.pagos.index', compact(
             'semanas', 'historial',
             'lunesActual', 'sabadoActual',
             'resumenSemana', 'totalSemana',
-            'yaGenerado'
+            'yaGenerado', 'pagoExistente', 'actividadesPendientes'
         ));
     }
 
@@ -197,6 +287,80 @@ class PagoController extends Controller
             DB::rollBack();
             return redirect()->route('pagos.index')
                 ->with('error', 'Error al generar el pago: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * agregarActividades()
+     * Agrega actividades nuevas (no incluidas aún) a un pago ya existente.
+     *
+     * El administrador selecciona con checkboxes qué actividades incluir.
+     * Se crean nuevos DetallePago y se actualiza el total_pago del encabezado.
+     * Solo funciona si el pago está en estado 'pendiente' (no pagado).
+     *
+     * Ruta: PATCH /pagos/{pago}/agregar-actividades
+     */
+    public function agregarActividades(Request $request, Pago $pago)
+    {
+        if ($pago->estado === 'pagado') {
+            return back()->with('error', 'No se pueden agregar actividades a un pago ya desembolsado.');
+        }
+
+        $request->validate([
+            'actividad_ids'   => 'required|array|min:1',
+            'actividad_ids.*' => 'integer|exists:actividad_laborals,id',
+        ]);
+
+        // Evitar duplicados: filtrar las que ya están en el pago
+        $yaIncluidos = $pago->detallePagos->pluck('actividad_laboral_id')->toArray();
+        $nuevasIds   = array_diff($request->actividad_ids, $yaIncluidos);
+
+        if (empty($nuevasIds)) {
+            return back()->with('error', 'Las actividades seleccionadas ya están incluidas en este pago.');
+        }
+
+        $actividades = ActividadLaboral::with('valorActividad')
+            ->whereIn('id', $nuevasIds)
+            ->where('estado_confirmacion', 'confirmado')
+            ->get();
+
+        if ($actividades->isEmpty()) {
+            return back()->with('error', 'No se encontraron actividades válidas para agregar.');
+        }
+
+        DB::beginTransaction();
+        try {
+            $totalNuevo = 0;
+
+            foreach ($actividades as $act) {
+                $valorUnit = $act->valorActividad->valor_unitario ?? 0;
+                $subtotal  = $act->cantidad * $valorUnit * $act->numero_pasada;
+                $totalNuevo += $subtotal;
+
+                DetallePago::create([
+                    'pago_id'              => $pago->id,
+                    'actividad_laboral_id' => $act->id,
+                    'cantidad'             => $act->cantidad,
+                    'valor_unitario'       => $valorUnit,
+                    'subtotal'             => $subtotal,
+                ]);
+            }
+
+            // Actualizar el total acumulado del pago
+            $pago->increment('total_pago', $totalNuevo);
+
+            DB::commit();
+
+            $lunes  = $pago->periodo_inicio->format('Y-m-d');
+            $sabado = $pago->periodo_fin->format('Y-m-d');
+
+            return redirect()
+                ->route('pagos.index', ['lunes' => $lunes, 'sabado' => $sabado])
+                ->with('success', count($nuevasIds) . ' actividad(es) agregada(s) al pago #' . $pago->id . '. Nuevo total: $' . number_format($pago->fresh()->total_pago, 0, ',', '.'));
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Error al agregar actividades: ' . $e->getMessage());
         }
     }
 

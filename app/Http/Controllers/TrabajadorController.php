@@ -39,17 +39,6 @@ class TrabajadorController extends Controller
     }
 
     /**
-     * create()
-     * Retorna el formulario de registro con los cargos disponibles
-     * para el campo select del formulario.
-     */
-    public function create()
-    {
-        $cargos = Cargo::orderBy('nombre')->get();
-        return view('admin.trabajadores.create', compact('cargos'));
-    }
-
-    /**
      * store()
      * Valida y guarda un nuevo trabajador.
      * - El documento de identidad debe ser único en la tabla.
@@ -79,17 +68,6 @@ class TrabajadorController extends Controller
 
         return redirect()->route('trabajadores.index')
             ->with('success', 'Trabajador registrado correctamente.');
-    }
-
-    /**
-     * edit()
-     * Carga el formulario de edición con los datos actuales del trabajador
-     * y la lista de cargos para el select.
-     */
-    public function edit(Trabajador $trabajador)
-    {
-        $cargos = Cargo::orderBy('nombre')->get();
-        return view('admin.trabajadores.edit', compact('trabajador', 'cargos'));
     }
 
     /**

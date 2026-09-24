@@ -38,15 +38,6 @@ class TipoActividadController extends Controller
     }
 
     /**
-     * create()
-     * Retorna el formulario vacío para registrar un nuevo tipo de actividad.
-     */
-    public function create()
-    {
-        return view('admin.tipo-actividades.create');
-    }
-
-    /**
      * store()
      * Valida y persiste un nuevo tipo de actividad.
      * - unidad_medida acepta: 'horas', 'dias', 'hectareas' (select en la vista).
@@ -67,17 +58,6 @@ class TipoActividadController extends Controller
 
         return redirect()->route('tipo-actividades.index')
             ->with('success', 'Tipo de actividad creado correctamente.');
-    }
-
-    /**
-     * edit()
-     * Carga el formulario de edición con los datos del tipo seleccionado.
-     * Nota: el modelo se inyecta como $tipo_actividad por el nombre del
-     * parámetro de ruta definido en web.php.
-     */
-    public function edit(TipoActividad $tipo_actividad)
-    {
-        return view('admin.tipo-actividades.edit', ['tipo' => $tipo_actividad]);
     }
 
     /**

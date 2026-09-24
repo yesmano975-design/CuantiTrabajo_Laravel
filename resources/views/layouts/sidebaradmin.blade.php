@@ -10,41 +10,60 @@
             theme: {
                 extend: {
                     colors: {
+                        /* Verde campo — primario de la app */
                         brand: {
-                            50:  '#eff6ff',
-                            100: '#dbeafe',
-                            200: '#bfdbfe',
-                            300: '#93c5fd',
-                            400: '#60a5fa',
-                            500: '#3b82f6',
-                            600: '#2563eb',
-                            700: '#1d4ed8',
-                            800: '#1e40af',
-                            900: '#1e3a8a',
-                            950: '#172554',
+                            50:  '#f2f8f0',
+                            100: '#dff0d8',
+                            200: '#b8dea8',
+                            300: '#88c474',
+                            400: '#5fa84e',
+                            500: '#4a8c3f',
+                            600: '#3a7031',
+                            700: '#2d5a27',
+                            800: '#22451e',
+                            900: '#183316',
+                            950: '#0d1f0c',
                         },
+                        /* Sidebar y elementos oscuros — verde selva profundo */
                         forest: {
-                            DEFAULT: '#1e3a8a',
-                            light:   '#2563eb',
-                            dark:    '#0f172a',
-                            deep:    '#080f1e',
+                            DEFAULT: '#1e3d20',
+                            light:   '#2d6a31',
+                            dark:    '#122514',
+                            deep:    '#0a1a0b',
+                        },
+                        /* Ámbar dorado — color del arroz maduro, acento secundario */
+                        harvest: {
+                            50:  '#fefbec',
+                            100: '#fdf3c4',
+                            200: '#fbe58a',
+                            300: '#f8d04e',
+                            400: '#f5bc28',
+                            500: '#d9980f',
+                            600: '#b87a09',
+                            700: '#8f5d0a',
+                            800: '#6a420f',
+                            900: '#4e3010',
+                        },
+                        /* Tierra / marrón — suelo de arrozal */
+                        soil: {
+                            100: '#f5ede4',
+                            200: '#e6d0b8',
+                            300: '#c9a882',
+                            400: '#a67c52',
+                            500: '#7c5c3a',
+                            600: '#5e4229',
                         },
                         sage:  '#52796F',
-                        mint:  '#D8F3DC',
-                        amber: {
-                            400: '#fbbf24',
-                            500: '#f59e0b',
-                            600: '#d97706',
-                        }
+                        mint:  '#d4edda',
                     },
                     fontFamily: {
                         sans:    ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
                         display: ['Outfit', 'sans-serif'],
                     },
                     boxShadow: {
-                        'glow-brand': '0 0 20px -3px rgba(59, 130, 246, 0.35)',
-                        'card-soft': '0 4px 20px -2px rgba(15, 23, 42, 0.05)',
-                        'card-hover': '0 12px 30px -4px rgba(30, 58, 138, 0.12)',
+                        'glow-brand': '0 0 20px -3px rgba(74, 140, 63, 0.40)',
+                        'card-soft':  '0 4px 20px -2px rgba(15, 30, 12, 0.06)',
+                        'card-hover': '0 12px 30px -4px rgba(30, 61, 32, 0.14)',
                     }
                 }
             }
@@ -56,7 +75,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f0f4ff; color: #1e293b; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f0f4ec; color: #1e293b; }
         h1,h2,h3,h4,h5,h6,.font-display { font-family: 'Outfit', sans-serif; }
 
         /* Sidebar scrollbar */
@@ -75,9 +94,9 @@
         .nav-item-active {
             background: linear-gradient(90deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.08) 100%) !important;
             color: #ffffff !important;
-            box-shadow: inset 4px 0 0 #60a5fa, 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: inset 4px 0 0 #88c474, 0 4px 12px rgba(0,0,0,0.1);
         }
-        .nav-item-active i { color: #93c5fd !important; }
+        .nav-item-active i { color: #b8dea8 !important; }
 
         /* Card glass effect */
         .glass-card {
@@ -88,9 +107,9 @@
 
         /* Global scrollbars */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #eef2ff; }
-        ::-webkit-scrollbar-thumb { background: #93c5fd; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #2563eb; }
+        ::-webkit-scrollbar-track { background: #edf2e8; }
+        ::-webkit-scrollbar-thumb { background: #88c474; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3a7031; }
 
         /* DataTables Custom Tailwind Integration */
         .dataTables_wrapper {
@@ -121,8 +140,8 @@
             background-size: 1rem 1rem !important;
         }
         .dataTables_wrapper .dataTables_filter input:focus {
-            border-color: #2563eb !important;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15) !important;
+            border-color: #3a7031 !important;
+            box-shadow: 0 0 0 3px rgba(74, 140, 63, 0.15) !important;
         }
         .dataTables_wrapper .dataTables_length select {
             border: 1.5px solid #e2e8f0 !important;
@@ -158,10 +177,10 @@
             transition: background 0.15s ease;
         }
         table.dataTable tbody tr:nth-of-type(even) {
-            background-color: #fbfdfc;
+            background-color: #f7faf4;
         }
         table.dataTable tbody tr:hover {
-            background-color: #eff6ff !important;
+            background-color: #edf5e8 !important;
         }
         table.dataTable tbody td {
             padding: 0.85rem 1rem !important;
@@ -192,9 +211,9 @@
             gap: 0.35rem !important;
         }
         .dt-buttons .dt-button:hover {
-            background: #eff6ff !important;
-            border-color: #93c5fd !important;
-            color: #1d4ed8 !important;
+            background: #edf5e8 !important;
+            border-color: #88c474 !important;
+            color: #2d5a27 !important;
             transform: translateY(-1px);
         }
 
@@ -218,20 +237,54 @@
         }
         .dataTables_wrapper .dataTables_paginate .paginate_button.current,
         .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
-            background: #1e3a8a !important;
-            border-color: #1e3a8a !important;
+            background: #2d5a27 !important;
+            border-color: #2d5a27 !important;
             color: #ffffff !important;
-            box-shadow: 0 2px 8px rgba(30, 58, 138, 0.25);
+            box-shadow: 0 2px 8px rgba(45, 90, 39, 0.30);
         }
         .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-            background: #eff6ff !important;
-            border-color: #93c5fd !important;
-            color: #1d4ed8 !important;
+            background: #edf5e8 !important;
+            border-color: #88c474 !important;
+            color: #2d5a27 !important;
         }
         .dataTables_wrapper .dataTables_info {
             margin-top: 1rem;
             font-size: 0.8rem;
             color: #64748b;
+        }
+        /* Primary button utility */
+        .btn-primary-custom {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.55rem 1.1rem;
+            border-radius: 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: #ffffff;
+            background: linear-gradient(135deg, #3a7031 0%, #2d5a27 100%);
+            box-shadow: 0 4px 14px rgba(45, 90, 39, 0.30);
+            transition: all 0.2s ease;
+        }
+        .btn-primary-custom:hover {
+            background: linear-gradient(135deg, #4a8c3f 0%, #3a7031 100%);
+            box-shadow: 0 6px 18px rgba(45, 90, 39, 0.40);
+            transform: translateY(-1px);
+        }
+        .btn-primary-custom:active { transform: scale(0.97); }
+
+        /* Badge utilitaria */
+        .badge-active {
+            display: inline-flex; align-items: center; gap: 0.35rem;
+            padding: 0.25rem 0.65rem; border-radius: 9999px;
+            font-size: 0.7rem; font-weight: 700;
+            background: #dff0d8; color: #2d5a27; border: 1px solid #88c474;
+        }
+        .badge-pending {
+            display: inline-flex; align-items: center; gap: 0.35rem;
+            padding: 0.25rem 0.65rem; border-radius: 9999px;
+            font-size: 0.7rem; font-weight: 700;
+            background: #fdf3c4; color: #8f5d0a; border: 1px solid #f8d04e;
         }
     </style>
     @yield('css')
@@ -273,7 +326,7 @@
     {{-- Navigation Menu --}}
     <nav class="flex-1 overflow-y-auto sidebar-scroll py-4 px-3 space-y-1.5">
 
-        <div class="px-3 pb-2 text-[10px] font-bold tracking-wider text-blue-200/50 uppercase">
+        <div class="px-3 pb-2 text-[10px] font-bold tracking-wider text-brand-200/50 uppercase">
             Principal
         </div>
 
@@ -281,11 +334,11 @@
         <a href="{{ route('dashboard') }}"
            class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/80 hover:bg-white/10 hover:text-white transition-all group font-medium text-sm
                   {{ request()->routeIs('dashboard') ? 'nav-item-active' : '' }}">
-            <i class="fas fa-grid-2 text-base w-5 text-center group-hover:text-brand-300 {{ request()->routeIs('dashboard') ? 'text-brand-300' : 'text-blue-200/70' }}"></i>
+            <i class="fas fa-grid-2 text-base w-5 text-center group-hover:text-brand-300 {{ request()->routeIs('dashboard') ? 'text-brand-300' : 'text-brand-200/60' }}"></i>
             <span>Dashboard</span>
         </a>
 
-        <div class="px-3 pt-3 pb-1 text-[10px] font-bold tracking-wider text-blue-200/50 uppercase">
+        <div class="px-3 pt-3 pb-1 text-[10px] font-bold tracking-wider text-brand-200/50 uppercase">
             Operaciones de Campo
         </div>
 
@@ -293,7 +346,7 @@
         <a href="{{ route('trabajadores.index') }}"
            class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/80 hover:bg-white/10 hover:text-white transition-all group font-medium text-sm
                   {{ request()->routeIs('trabajadores.*') ? 'nav-item-active' : '' }}">
-            <i class="fas fa-user-group text-base w-5 text-center group-hover:text-brand-300 {{ request()->routeIs('trabajadores.*') ? 'text-brand-300' : 'text-blue-200/70' }}"></i>
+            <i class="fas fa-user-group text-base w-5 text-center group-hover:text-brand-300 {{ request()->routeIs('trabajadores.*') ? 'text-brand-300' : 'text-brand-200/60' }}"></i>
             <span>Trabajadores</span>
         </a>
 
@@ -301,7 +354,7 @@
         <a href="{{ route('lotes.index') }}"
            class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/80 hover:bg-white/10 hover:text-white transition-all group font-medium text-sm
                   {{ request()->routeIs('lotes.*') ? 'nav-item-active' : '' }}">
-            <i class="fas fa-map-location-dot text-base w-5 text-center group-hover:text-brand-300 {{ request()->routeIs('lotes.*') ? 'text-brand-300' : 'text-blue-200/70' }}"></i>
+            <i class="fas fa-map-location-dot text-base w-5 text-center group-hover:text-brand-300 {{ request()->routeIs('lotes.*') ? 'text-brand-300' : 'text-brand-200/60' }}"></i>
             <span>Lotes y Terrenos</span>
         </a>
 
@@ -309,11 +362,11 @@
         <a href="{{ route('actividades.index') }}"
            class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/80 hover:bg-white/10 hover:text-white transition-all group font-medium text-sm
                   {{ request()->routeIs('actividades.*') ? 'nav-item-active' : '' }}">
-            <i class="fas fa-clipboard-check text-base w-5 text-center group-hover:text-brand-300 {{ request()->routeIs('actividades.*') ? 'text-brand-300' : 'text-blue-200/70' }}"></i>
+            <i class="fas fa-clipboard-check text-base w-5 text-center group-hover:text-brand-300 {{ request()->routeIs('actividades.*') ? 'text-brand-300' : 'text-brand-200/60' }}"></i>
             <span>Actividades</span>
         </a>
 
-        <div class="px-3 pt-3 pb-1 text-[10px] font-bold tracking-wider text-blue-200/50 uppercase">
+        <div class="px-3 pt-3 pb-1 text-[10px] font-bold tracking-wider text-brand-200/50 uppercase">
             Finanzas y Tarifas
         </div>
 
@@ -321,9 +374,9 @@
         <a href="{{ route('pagos.index') }}"
            class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/80 hover:bg-white/10 hover:text-white transition-all group font-medium text-sm
                   {{ request()->routeIs('pagos.*') ? 'nav-item-active' : '' }}">
-            <i class="fas fa-file-invoice-dollar text-base w-5 text-center group-hover:text-brand-300 {{ request()->routeIs('pagos.*') ? 'text-brand-300' : 'text-blue-200/70' }}"></i>
+            <i class="fas fa-file-invoice-dollar text-base w-5 text-center group-hover:text-brand-300 {{ request()->routeIs('pagos.*') ? 'text-brand-300' : 'text-brand-200/60' }}"></i>
             <span class="flex-1">Liquidación Pagos</span>
-            <span class="text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-400/30 px-1.5 py-0.5 rounded-md">Semanal</span>
+            <span class="text-[10px] font-bold bg-harvest-500/20 text-harvest-300 border border-harvest-400/30 px-1.5 py-0.5 rounded-md">Semanal</span>
         </a>
 
         {{-- Tarifas y Valores — solo administrador --}}
@@ -331,20 +384,20 @@
         <a href="{{ route('tipo-actividades.index') }}"
            class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/80 hover:bg-white/10 hover:text-white transition-all group font-medium text-sm
                   {{ request()->routeIs('tipo-actividades.*') ? 'nav-item-active' : '' }}">
-            <i class="fas fa-shapes text-base w-5 text-center group-hover:text-brand-300 {{ request()->routeIs('tipo-actividades.*') ? 'text-brand-300' : 'text-blue-200/70' }}"></i>
+            <i class="fas fa-shapes text-base w-5 text-center group-hover:text-brand-300 {{ request()->routeIs('tipo-actividades.*') ? 'text-brand-300' : 'text-brand-200/60' }}"></i>
             <span>Tipos de Actividad</span>
         </a>
         <a href="{{ route('tarifas.index') }}"
            class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/80 hover:bg-white/10 hover:text-white transition-all group font-medium text-sm
                   {{ request()->routeIs('tarifas.*') ? 'nav-item-active' : '' }}">
-            <i class="fas fa-dollar-sign text-base w-5 text-center group-hover:text-brand-300 {{ request()->routeIs('tarifas.*') ? 'text-brand-300' : 'text-blue-200/70' }}"></i>
+            <i class="fas fa-dollar-sign text-base w-5 text-center group-hover:text-brand-300 {{ request()->routeIs('tarifas.*') ? 'text-brand-300' : 'text-brand-200/60' }}"></i>
             <span>Tarifas Vigentes</span>
         </a>
         @endif
 
         {{-- Sección Administración — solo visible para administrador --}}
         @if(Auth::user()->rol->nombre === 'administrador')
-        <div class="px-3 pt-3 pb-1 text-[10px] font-bold tracking-wider text-blue-200/50 uppercase">
+        <div class="px-3 pt-3 pb-1 text-[10px] font-bold tracking-wider text-brand-200/50 uppercase">
             Administración
         </div>
 
@@ -352,7 +405,7 @@
         <a href="{{ route('usuarios.index') }}"
            class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/80 hover:bg-white/10 hover:text-white transition-all group font-medium text-sm
                   {{ request()->routeIs('usuarios.*') ? 'nav-item-active' : '' }}">
-            <i class="fas fa-shield-halved text-base w-5 text-center group-hover:text-brand-300 {{ request()->routeIs('usuarios.*') ? 'text-brand-300' : 'text-blue-200/70' }}"></i>
+            <i class="fas fa-shield-halved text-base w-5 text-center group-hover:text-brand-300 {{ request()->routeIs('usuarios.*') ? 'text-brand-300' : 'text-brand-200/60' }}"></i>
             <span>Usuarios y Roles</span>
         </a>
         @endif
@@ -366,11 +419,11 @@
                 <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-600 to-brand-400 flex items-center justify-center text-white font-bold text-sm shadow-sm">
                     {{ strtoupper(substr(Auth::user()->nombre ?? 'A', 0, 1)) }}
                 </div>
-                <span class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-blue-400 border-2 border-forest-dark rounded-full"></span>
+                <span class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-brand-400 border-2 border-forest-dark rounded-full"></span>
             </div>
             <div class="min-w-0 flex-1">
                 <div class="text-xs font-bold text-white truncate">{{ Auth::user()->nombre ?? 'Admin' }} {{ Auth::user()->apellido ?? '' }}</div>
-                <div class="text-[11px] text-blue-300/80 truncate">{{ Auth::user()->rol->nombre ?? 'Administrador' }}</div>
+                <div class="text-[11px] text-brand-200/70 truncate">{{ Auth::user()->rol->nombre ?? 'Administrador' }}</div>
             </div>
         </div>
     </div>
@@ -379,7 +432,7 @@
 {{-- ======================================================
      MAIN VIEWPORT AREA
      ====================================================== --}}
-<div class="flex-1 flex flex-col min-w-0 overflow-hidden bg-[#f0f4ff]">
+<div class="flex-1 flex flex-col min-w-0 overflow-hidden bg-[#f0f4ec]">
 
     {{-- Sticky Modern Topbar --}}
     <header class="flex-shrink-0 h-16 bg-white/90 backdrop-blur-md border-b border-slate-200/80 flex items-center justify-between px-4 sm:px-6 shadow-xs z-20">
@@ -392,7 +445,7 @@
                 <div class="flex items-center gap-2 text-xs font-semibold text-slate-400">
                     <span>CuantiTrabajo</span>
                     <i class="fas fa-chevron-right text-[9px] text-slate-300"></i>
-                    <span class="text-blue-700 font-bold">@yield('tituloPagina', 'Panel')</span>
+                    <span class="text-brand-700 font-bold">@yield('tituloPagina', 'Panel')</span>
                 </div>
                 <h1 class="font-display font-black text-slate-800 text-lg leading-tight tracking-tight">
                     @yield('tituloPagina', 'Panel de Control')
@@ -402,13 +455,13 @@
 
         {{-- Right Topbar Actions --}}
         <div class="flex items-center gap-3 sm:gap-4">
-            <div class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 border border-blue-200/60 text-xs font-semibold text-blue-800">
-                <i class="fas fa-calendar-day text-blue-600"></i>
+            <div class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-50 border border-brand-200/60 text-xs font-semibold text-brand-800">
+                <i class="fas fa-calendar-day text-brand-600"></i>
                 <span>{{ now()->locale('es')->isoFormat('dddd, D MMMM YYYY') }}</span>
             </div>
 
             <a href="{{ route('actividades.index') }}"
-                   class="inline-flex items-center gap-2 bg-gradient-to-r from-forest to-forest-light text-white px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold hover:shadow-lg hover:shadow-blue-900/20 hover:-translate-y-0.5 transition-all shadow-sm">
+                   class="inline-flex items-center gap-2 bg-gradient-to-r from-forest to-forest-light text-white px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold hover:shadow-lg hover:shadow-forest-dark/20 hover:-translate-y-0.5 transition-all shadow-sm">
                 <i class="fas fa-plus-circle text-brand-300"></i>
                 <span class="hidden sm:inline">Nueva Actividad</span>
                 <span class="sm:hidden">Nueva</span>
@@ -420,7 +473,7 @@
             <div class="relative" id="user-menu-container">
                 <button onclick="toggleUserMenu()"
                     class="flex items-center gap-2.5 p-1 rounded-xl hover:bg-slate-100 transition-all focus:outline-none group">
-                    <div class="w-9 h-9 rounded-xl bg-blue-100/80 border border-blue-300/60 flex items-center justify-center text-forest font-black text-sm shadow-xs">
+                    <div class="w-9 h-9 rounded-xl bg-brand-100/80 border border-brand-300/60 flex items-center justify-center text-forest font-black text-sm shadow-xs">
                         {{ strtoupper(substr(Auth::user()->nombre ?? 'A', 0, 1)) }}
                     </div>
                     <div class="hidden xl:block text-left leading-tight">
@@ -472,9 +525,9 @@
         toast: true,
         position: 'top-end',
         background: '#ffffff',
-        iconColor: '#2563eb',
+        iconColor: '#3a7031',
         customClass: {
-            popup: 'rounded-2xl shadow-xl border border-blue-100'
+            popup: 'rounded-2xl shadow-xl border border-brand-100'
         }
     });
 </script>
@@ -485,7 +538,7 @@
         icon: 'error',
         title: 'Atención',
         text: '{{ session('error') }}',
-        confirmButtonColor: '#1e3a8a',
+        confirmButtonColor: '#2d5a27',
         customClass: {
             popup: 'rounded-2xl shadow-xl'
         }
@@ -527,7 +580,7 @@ function swConfirm(el, message, icon, confirmText, cancelText) {
         showCancelButton: true,
         confirmButtonText: confirmText,
         cancelButtonText: cancelText,
-        confirmButtonColor: icon === 'warning' ? '#ef4444' : '#1e3a8a',
+        confirmButtonColor: icon === 'warning' ? '#ef4444' : '#2d5a27',
         cancelButtonColor:  '#64748b',
         reverseButtons: true,
         customClass: {

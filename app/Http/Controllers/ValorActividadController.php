@@ -41,17 +41,6 @@ class ValorActividadController extends Controller
     }
 
     /**
-     * create()
-     * Retorna el formulario de nueva tarifa con los tipos de actividad
-     * disponibles para el selector.
-     */
-    public function create()
-    {
-        $tipos = TipoActividad::orderBy('nombre')->get();
-        return view('admin.tarifas.create', compact('tipos'));
-    }
-
-    /**
      * store()
      * Valida y crea una nueva tarifa.
      * - fecha_fin es opcional; si se omite, la tarifa se considera abierta (sin vencimiento).
@@ -78,18 +67,6 @@ class ValorActividadController extends Controller
 
         return redirect()->route('tarifas.index')
             ->with('success', 'Tarifa registrada correctamente.');
-    }
-
-    /**
-     * edit()
-     * Carga el formulario de edición con los datos de la tarifa
-     * y los tipos de actividad disponibles.
-     * Nota: el parámetro de ruta se llama {tarifa} (definido en web.php).
-     */
-    public function edit(ValorActividad $tarifa)
-    {
-        $tipos = TipoActividad::orderBy('nombre')->get();
-        return view('admin.tarifas.edit', compact('tarifa', 'tipos'));
     }
 
     /**

@@ -82,13 +82,6 @@ class ActividadLaboralController extends Controller
      * que se registren actividades con tarifas vencidas o inactivas.
      * Solo carga trabajadores con estado 'activo'.
      */
-    public function create()
-    {
-        // El formulario de crear actividad es ahora un modal en el index.
-        // Esta ruta ya no se usa — redirige al index directamente.
-        return redirect()->route('actividades.index');
-    }
-
     /**
      * store()
      * Valida y persiste una nueva actividad laboral.
@@ -122,20 +115,6 @@ class ActividadLaboralController extends Controller
 
         return redirect()->route('actividades.index')
             ->with('success', 'Actividad registrada correctamente.');
-    }
-
-    /**
-     * edit()
-     * Carga el formulario de edición para una actividad existente.
-     * Solo se permite editar actividades en estado 'pendiente'; las
-     * confirmadas o rechazadas son inmutables para proteger la integridad
-     * de las liquidaciones ya generadas.
-     */
-    public function edit(ActividadLaboral $actividad)
-    {
-        // La edición se hace ahora desde el modal en el index.
-        // Si alguien llega por URL directa, redirigir al index.
-        return redirect()->route('actividades.index');
     }
 
     /**
@@ -210,7 +189,6 @@ class ActividadLaboralController extends Controller
         $actividad->estado_confirmacion = $request->estado_confirmacion;
         $actividad->save();
 
-        // Mensaje descriptivo según el nuevo estado
         $msg = match($request->estado_confirmacion) {
             'confirmado' => 'Actividad confirmada correctamente.',
             'rechazado'  => 'Actividad rechazada.',
@@ -218,5 +196,53 @@ class ActividadLaboralController extends Controller
         };
 
         return redirect()->route('actividades.index')->with('success', $msg);
+    }
+
+    /**
+     * avanceLote()
+     * Devuelve en JSON el avance de hectáreas ya registradas para una
+     * combinación de lote + tipo de actividad (valor_actividad_id).
+     * Usado por el formulario de nueva actividad para mostrar el progreso
+     * del lote en tiempo real y advertir si se excede el total de hectáreas.
+     *
+     * Ruta: GET /actividades/avance-lote?lote_id=X&valor_actividad_id=Y
+     * Excluye actividades rechazadas; incluye pendientes y confirmadas.
+     */
+    public function avanceLote(Request $request)
+    {
+        $loteId          = $request->integer('lote_id');
+        $valorActividadId = $request->integer('valor_actividad_id');
+        $excluirId       = $request->integer('excluir_id', 0); // para edición: excluir la actividad actual
+
+        $lote = Lote::find($loteId);
+
+        if (!$lote || !$valorActividadId) {
+            return response()->json(['error' => 'Parámetros inválidos'], 422);
+        }
+
+        // Suma de cantidades ya registradas para este lote + tipo de actividad
+        $query = ActividadLaboral::where('lote_id', $loteId)
+            ->where('valor_actividad_id', $valorActividadId)
+            ->whereIn('estado_confirmacion', ['pendiente', 'confirmado']);
+
+        if ($excluirId > 0) {
+            $query->where('id', '!=', $excluirId);
+        }
+
+        $hectareasRegistradas = $query->sum('cantidad');
+        $hectareasTotales     = (float) $lote->tamano_hectareas;
+        $hectareasRestantes   = max(0, $hectareasTotales - $hectareasRegistradas);
+        $porcentaje           = $hectareasTotales > 0
+            ? min(100, round(($hectareasRegistradas / $hectareasTotales) * 100, 1))
+            : 0;
+
+        return response()->json([
+            'lote_nombre'          => $lote->nombre,
+            'hectareas_totales'    => $hectareasTotales,
+            'hectareas_registradas'=> $hectareasRegistradas,
+            'hectareas_restantes'  => $hectareasRestantes,
+            'porcentaje'           => $porcentaje,
+            'completado'           => $hectareasRegistradas >= $hectareasTotales,
+        ]);
     }
 }
